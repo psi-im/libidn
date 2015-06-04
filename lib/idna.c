@@ -539,11 +539,9 @@ idna_to_ascii_4z (const uint32_t * input, char **output, int flags)
 	}
       else
 	{
-	  size_t l = strlen (buf) + 1;
-	  out = (char *) malloc (l);
+	  out = strdup (buf);
 	  if (!out)
 	    return IDNA_MALLOC_ERROR;
-	  strcpy (out, buf);
 	}
 
       start = end + 1;
