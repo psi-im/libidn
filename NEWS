@@ -2,6 +2,15 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.31 (unreleased) [stable]
+
+** libidn: Workaround valgrind/gcc/glibc issue.
+Valgrind reported a 'Invalid read of size 4' that was caused by
+optimized strlen implementation.  Reported and patch by Alessandro
+Ghedini <alessandro@ghedini.me>.
+
+** API and ABI is backwards compatible with the previous version.
+
 * Version 1.30 (released 2015-03-02) [stable]
 
 ** libidn: The punycode.{c,h} files were re-imported from RFC 3492bis.
