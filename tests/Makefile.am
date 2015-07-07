@@ -37,4 +37,4 @@ EXTRA_DIST = libidn.supp
 TESTS = $(ctests)
 check_PROGRAMS = $(ctests)
 
-TESTS_ENVIRONMENT = $(VALGRIND)
+LOG_COMPILER = $(VALGRIND)
