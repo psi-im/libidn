@@ -2,7 +2,36 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.31 (unreleased) [stable]
+* Version 1.31 (unreleased) [beta]
+
+** libidn: stringprep_utf8_to_ucs4 now rejects invalid UTF-8. CVE-2015-2059
+This function has always been documented to not validate that the
+input UTF-8 string is actually valid UTF-8.  Like the rest of the API,
+when you call a function that works on UTF-8 data, you have to pass it
+valid UTF-8 data.  Application writers appear to have difficulties
+using interfaces designed like that, as bugs triggered by invalid
+UTF-8 has been identified in a number of projects (jabberd2, gnutls,
+wget, and curl).  While we could introduce a new API to perform UTF-8
+validation, so that applications can easily implement the proper
+checks, this appear error prone because there is a risk that the check
+will be forgotten.  Instead, we took the more radical approach of
+modifying the documentation and the implementation of the API.  The
+intention is that all functions that accepts UTF-8 data should
+validate it before use.  This will solve the problem for applications,
+without needing to change them.  This change has the unfortunate
+side-effect that Surrogate codes (see section 5.5 of RFC 3454) no
+longer trigger the STRINGPREP_CONTAINS_PROHIBITED error code but
+instead will trigger the newly introduced STRINGPREP_ICONV_ERROR error
+code, as the gnulib/libunistring-based code that we use to test
+UTF-8-compliance rejects Surrogate codes.  We hope that this is an
+acceptable cost to live with in order to improve application security.
+We welcome feedback on this solution, and we are marking this release
+as beta rather than stable to signal that we may reconsider this
+approach if people disagree.  Reported by several people including
+Thijs Alkemade, Gustavo Grieco, Daniel Stenberg, and Nikos
+Mavrogiannopoulos.
+
+** libidn: Added STRINGPREP_ICONV_ERROR error code.
 
 ** libidn: Workaround valgrind/gcc/glibc issue.
 Valgrind reported a 'Invalid read of size 4' that was caused by
