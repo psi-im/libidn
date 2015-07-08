@@ -2,7 +2,7 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.31 (unreleased) [beta]
+* Version 1.31 (released 2015-07-08) [beta]
 
 ** libidn: stringprep_utf8_to_ucs4 now rejects invalid UTF-8. CVE-2015-2059
 This function has always been documented to not validate that the
