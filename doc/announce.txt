@@ -1,5 +1,5 @@
 To: help-libidn@gnu.org, info-gnu@gnu.org
-Subject: Libidn 1.29 released
+Subject: Libidn 1.30 released
 <#part sign=pgpmime>
 GNU Libidn is a fully documented implementation of the Stringprep,
 Punycode and IDNA specifications.  Libidn's purpose is to encode and
@@ -8,41 +8,39 @@ and Java libraries.
 
 Noteworthy changes since the last release (from NEWS file):
 
-* Version 1.29 (released 2014-08-10) [stable]
+* Version 1.30 (released 2015-03-02) [stable]
 
-** libidn: Mark internal variable "g_utf8_skip" as static.
-Reported by Thomas Dineen <tdineen@ix.netcom.com>.
+** libidn: The punycode.{c,h} files were re-imported from RFC 3492bis.
+A comment explaining the origin and what was changed was added.
 
-** idn: Flush stdout to simplify for tools that buffer too heavily.
-Tiny patch from Hugh Daschbach <hugh@ccss.com>.
+** Bump gettext to 0.19.3.
 
-** i18n: Added Brazilian Portuguese translation.
-Thanks to Rafael Ferreira.
+** Use LT_INIT instead of AC_LIBTOOL_WIN32_DLL.
 
-** Update gnulib files.
+** i18n: Added Hungarian translation.  Updated some other languages.
+Thanks to Balázs Úr.
 
 ** API and ABI is backwards compatible with the previous version.
 
 The C library contains a generic Stringprep implementation.  Profiles
-for Nameprep, iSCSI, SASL, XMPP and Kerberos V5 are included.
-Punycode and ASCII Compatible Encoding (ACE) via IDNA are supported.
-A mechanism to define Top-Level Domain (TLD) specific validation
-tables, and to compare strings against those tables, is included.
-Default tables for some TLDs are also included.
+for Nameprep, iSCSI, SASL, XMPP and Kerberos V5 are included.  Punycode
+and ASCII Compatible Encoding (ACE) via IDNA are supported.  A mechanism
+to define Top-Level Domain (TLD) specific validation tables, and to
+compare strings against those tables, is included.  Default tables for
+some TLDs are also included.
 
 The Stringprep API consists of two main functions, one for converting
 data from the system's native representation into UTF-8, and one
-function to perform the Stringprep processing.  Adding a new
-Stringprep profile for your application within the API is
-straightforward.  The Punycode API consists of one encoding function
-and one decoding function.  The IDNA API consists of the ToASCII and
-ToUnicode functions, as well as an high-level interface for converting
-entire domain names to and from the ACE encoded form.  The TLD API
-consists of one set of functions to extract the TLD name from a domain
-string, one set of functions to locate the proper TLD table to use
-based on the TLD name, and core functions to validate a string against
-a TLD table, and some utility wrappers to perform all the steps in one
-call.
+function to perform the Stringprep processing.  Adding a new Stringprep
+profile for your application within the API is straightforward.  The
+Punycode API consists of one encoding function and one decoding
+function.  The IDNA API consists of the ToASCII and ToUnicode functions,
+as well as an high-level interface for converting entire domain names to
+and from the ACE encoded form.  The TLD API consists of one set of
+functions to extract the TLD name from a domain string, one set of
+functions to locate the proper TLD table to use based on the TLD name,
+and core functions to validate a string against a TLD table, and some
+utility wrappers to perform all the steps in one call.
 
 Libidn is developed for the GNU/Linux system, but runs on over 20 Unix
 platforms (including Solaris, IRIX, AIX, and Tru64) and Windows.  The
@@ -50,13 +48,13 @@ library is written in C and (parts of) the API is also accessible from
 C++, Emacs Lisp, Python and Java.  A native Java and C# port is
 included.
 
-Also included is a command line tool, several self tests, code
-examples, and more.
+Also included is a command line tool, several self tests, code examples,
+and more.
 
 Improving Libidn is costly, but you can help!  We are looking for
-organizations that find Libidn useful and wish to contribute back.
-You can contribute by reporting bugs, improve the software, or donate
-money or equipment.
+organizations that find Libidn useful and wish to contribute back.  You
+can contribute by reporting bugs, improve the software, or donate money
+or equipment.
 
 Commercial support contracts for Libidn are available, and they help
 finance continued maintenance.  Simon Josefsson Datakonsult AB, a
@@ -92,33 +90,33 @@ invited to join our help-libidn mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-libidn
 
 Here are the compressed sources (3.4MB):
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz
-  http://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz
+  http://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz
 
 Here are GPG detached signatures:
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz.sig
-  http://ftp.gnu.org/gnu/libidn/libidn-1.29.tar.gz.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz.sig
+  http://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz.sig
 
 Here are the SHA-1 and SHA-224 signatures:
 
-e0959eec9a03fd8053379b0aeab447c546c05ab2  libidn-1.29.tar.gz
-fb82747dbbf9b36f703ed27293317d818d7e851d4f5773dedf3efa4db32a7c7c  libidn-1.29.tar.gz
+557e1e37f0978e975b21bcdc243c198cb708bb75  libidn-1.30.tar.gz
+0387d0dd60d61a6e35980531f2c31e97f298fffafb0e69597c6fa3a9  libidn-1.30.tar.gz
 
 We also provide Windows binaries built using MinGW-w64 with the build
 script windows/libidn4win.mk, for 32-bit and 64-bit x86 architecures:
 
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29-win32.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29-win32.zip.sig
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29-win64.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.29-win64.zip.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win32.zip
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win32.zip.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win64.zip
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win64.zip.sig
 
 Here are the SHA-1 and SHA-224 signatures:
 
-ece31e774ad39bebcac407273e995ba6f3a11bca  libidn-1.29-win32.zip
-2ef64330f8104a07dda246a2fd30860824decffa  libidn-1.29-win64.zip
+127a4b83cc3aa1f72cf68f8e51fead101169806c  libidn-1.30-win32.zip
+2b0b69ab5d0fbef8fda2d618e9ce2015d5be0670  libidn-1.30-win64.zip
 
-4039d0b4a6c554020040f1672a301738d99a4af456b53a2efb56c9473c8d918d  libidn-1.29-win32.zip
-b8229a5efd496cae86c3f6ee354f9037dae90ddd99b19eafa997b24146ea6f73  libidn-1.29-win64.zip
+7a67ac3769c4fab5c5c4dad96e8a6fea82d89952f278721a9e5efe55  libidn-1.30-win32.zip
+97af8fb4168db5249bb7d575d619cd77646baed83f9061f117614b66  libidn-1.30-win64.zip
 
 The software is cryptographically signed by the author using an OpenPGP
 key identified by the following information:
