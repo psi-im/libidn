@@ -638,6 +638,8 @@ tests/tst_tld
 tests/tst_tld.o
 tests/tst_toutf8
 tests/tst_toutf8.o
+tests/tst_utf8crash
+tests/tst_utf8crash.o
 tests/utils.o
 windows/libidn-*-win??.zip
 windows/libidn-*-win??.zip.sig
