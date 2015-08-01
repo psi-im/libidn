@@ -1,5 +1,5 @@
 To: help-libidn@gnu.org, info-gnu@gnu.org
-Subject: Libidn 1.30 released
+Subject: Libidn 1.31 released
 <#part sign=pgpmime>
 GNU Libidn is a fully documented implementation of the Stringprep,
 Punycode and IDNA specifications.  Libidn's purpose is to encode and
@@ -8,17 +8,48 @@ and Java libraries.
 
 Noteworthy changes since the last release (from NEWS file):
 
-* Version 1.30 (released 2015-03-02) [stable]
+* Version 1.31 (released 2015-07-08) [beta]
 
-** libidn: The punycode.{c,h} files were re-imported from RFC 3492bis.
-A comment explaining the origin and what was changed was added.
+** libidn: stringprep_utf8_to_ucs4 now rejects invalid UTF-8. CVE-2015-2059
+This function has always been documented to not validate that the
+input UTF-8 string is actually valid UTF-8.  Like the rest of the API,
+when you call a function that works on UTF-8 data, you have to pass it
+valid UTF-8 data.  Application writers appear to have difficulties
+using interfaces designed like that, as bugs triggered by invalid
+UTF-8 has been identified in a number of projects (jabberd2, gnutls,
+wget, and curl).  While we could introduce a new API to perform UTF-8
+validation, so that applications can easily implement the proper
+checks, this appear error prone because there is a risk that the check
+will be forgotten.  Instead, we took the more radical approach of
+modifying the documentation and the implementation of the API.  The
+intention is that all functions that accepts UTF-8 data should
+validate it before use.  This will solve the problem for applications,
+without needing to change them.  This change has the unfortunate
+side-effect that Surrogate codes (see section 5.5 of RFC 3454) no
+longer trigger the STRINGPREP_CONTAINS_PROHIBITED error code but
+instead will trigger the newly introduced STRINGPREP_ICONV_ERROR error
+code, as the gnulib/libunistring-based code that we use to test
+UTF-8-compliance rejects Surrogate codes.  We hope that this is an
+acceptable cost to live with in order to improve application security.
+We welcome feedback on this solution, and we are marking this release
+as beta rather than stable to signal that we may reconsider this
+approach if people disagree.  Reported by several people including
+Thijs Alkemade, Gustavo Grieco, Daniel Stenberg, and Nikos
+Mavrogiannopoulos.
 
-** Bump gettext to 0.19.3.
+** libidn: Added STRINGPREP_ICONV_ERROR error code.
 
-** Use LT_INIT instead of AC_LIBTOOL_WIN32_DLL.
+** libidn: Workaround valgrind/gcc/glibc issue.
+Valgrind reported a 'Invalid read of size 4' that was caused by
+optimized strlen implementation.  Reported and patch by Alessandro
+Ghedini <alessandro@ghedini.me>.
 
-** i18n: Added Hungarian translation.  Updated some other languages.
-Thanks to Balázs Úr.
+** build: Use LOG_COMPILER instead of TESTS_ENVIRONMENT to fix valgrind use.
+Errors caught by valgrind did not always trigger 'make check' failures
+before.
+
+** i18n: Updated Danish translation.
+Thanks to Joe Hansen.
 
 ** API and ABI is backwards compatible with the previous version.
 
@@ -90,33 +121,33 @@ invited to join our help-libidn mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-libidn
 
 Here are the compressed sources (3.4MB):
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz
-  http://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31.tar.gz
+  http://ftp.gnu.org/gnu/libidn/libidn-1.31.tar.gz
 
 Here are GPG detached signatures:
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz.sig
-  http://ftp.gnu.org/gnu/libidn/libidn-1.30.tar.gz.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31.tar.gz.sig
+  http://ftp.gnu.org/gnu/libidn/libidn-1.31.tar.gz.sig
 
 Here are the SHA-1 and SHA-224 signatures:
 
-557e1e37f0978e975b21bcdc243c198cb708bb75  libidn-1.30.tar.gz
-0387d0dd60d61a6e35980531f2c31e97f298fffafb0e69597c6fa3a9  libidn-1.30.tar.gz
+0bb34003a0fe05a91e60d346803401f16c82a1fb  libidn-1.31.tar.gz
+70b14fa49c875b4bc9919e50c994968e34c965bbd20f8c9bef0d6431  libidn-1.31.tar.gz
 
 We also provide Windows binaries built using MinGW-w64 with the build
 script windows/libidn4win.mk, for 32-bit and 64-bit x86 architecures:
 
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win32.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win32.zip.sig
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win64.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.30-win64.zip.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31-win32.zip
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31-win32.zip.sig
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31-win64.zip
+  ftp://ftp.gnu.org/gnu/libidn/libidn-1.31-win64.zip.sig
 
 Here are the SHA-1 and SHA-224 signatures:
 
-127a4b83cc3aa1f72cf68f8e51fead101169806c  libidn-1.30-win32.zip
-2b0b69ab5d0fbef8fda2d618e9ce2015d5be0670  libidn-1.30-win64.zip
+be5e14202d82ae53c801f09aef604ec4fa4a36cb  libidn-1.31-win32.zip
+160d03fa8acc139719ed8b4d788a2891563186287774300b5fa4af08  libidn-1.31-win32.zip
 
-7a67ac3769c4fab5c5c4dad96e8a6fea82d89952f278721a9e5efe55  libidn-1.30-win32.zip
-97af8fb4168db5249bb7d575d619cd77646baed83f9061f117614b66  libidn-1.30-win64.zip
+3f42b05753fceba465b0ec758455972088ea8777  libidn-1.31-win64.zip
+62b97a5bdcdfb5f514029f2b83c7bcb57248a420b4087f5a058bda86  libidn-1.31-win64.zip
 
 The software is cryptographically signed by the author using an OpenPGP
 key identified by the following information:
@@ -127,11 +158,6 @@ uid                  Simon Josefsson <simon@josefsson.org>
 
 The key is available from:
   http://josefsson.org/54265e8c.txt
-
-Previous versions were signed using my old OpenPGP key, if you trusted
-it you can use the following key transition document to gain trust in my
-new key:
-  https://josefsson.org/key-transition-2014-06-22.txt
 
 Code coverage, clang-analyzer output, and cyclomatic code complexity charts:
   https://www.gnu.org/software/libidn/coverage/
