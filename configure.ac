@@ -41,9 +41,8 @@ lgl_EARLY
 DLL_VERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
 AC_SUBST(DLL_VERSION)
 
-LT_INIT([win32-dll])
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
-AC_PROG_LIBTOOL
+LT_INIT([win32-dll])
 
 # Checks for programs.
 AM_MISSING_PROG(PERL, perl, $missing_dir)
