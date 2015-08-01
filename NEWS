@@ -2,6 +2,10 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.32 (unreleased) [beta]
+
+** API and ABI is backwards compatible with the previous version.
+
 * Version 1.31 (released 2015-07-08) [beta]
 
 ** libidn: stringprep_utf8_to_ucs4 now rejects invalid UTF-8. CVE-2015-2059
@@ -46,6 +50,7 @@ before.
 Thanks to Joe Hansen.
 
 ** API and ABI is backwards compatible with the previous version.
+See discussion above on slight change in semantics of functions.
 
 * Version 1.30 (released 2015-03-02) [stable]
 
