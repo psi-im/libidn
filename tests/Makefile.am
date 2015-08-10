@@ -32,8 +32,6 @@ if TLD
 ctests += tst_tld
 endif
 
-EXTRA_DIST = libidn.supp
-
 TESTS = $(ctests)
 check_PROGRAMS = $(ctests)
 
