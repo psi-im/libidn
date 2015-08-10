@@ -2,6 +2,10 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
 
+* Version 1.33 (unreleased) [beta]
+
+** API and ABI is backwards compatible with the previous version.
+
 * Version 1.32 (released 2015-08-01) [beta]
 
 ** libidn: Fix crash in idna_to_unicode_8z8z and idna_to_unicode_8zlz.
