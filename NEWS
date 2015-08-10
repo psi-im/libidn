@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 1.33 (unreleased) [beta]
 
+** idn: Solve out-of-bounds-read by replacing fgets with getline.
+Reported by Hanno Böck <hanno@hboeck.de>.
+
 ** Dropped valgrind suppressions file, should no longer be needed.
 
 ** API and ABI is backwards compatible with the previous version.
