@@ -126,7 +126,8 @@ int
 main (int argc, char *argv[])
 {
   struct gengetopt_args_info args_info;
-  char readbuf[BUFSIZ];
+  char *line = NULL;
+  size_t linelen = 0;
   char *p, *r;
   uint32_t *q;
   unsigned cmdn = 0;
@@ -190,11 +191,8 @@ main (int argc, char *argv[])
   do
     {
       if (cmdn < args_info.inputs_num)
-	{
-	  strncpy (readbuf, args_info.inputs[cmdn++], BUFSIZ - 1);
-	  readbuf[BUFSIZ - 1] = '\0';
-	}
-      else if (fgets (readbuf, BUFSIZ, stdin) == NULL)
+	line = strdup (args_info.inputs[cmdn++]);
+      else if (getline (&line, &linelen, stdin) == -1)
 	{
 	  if (feof (stdin))
 	    break;
@@ -202,12 +200,12 @@ main (int argc, char *argv[])
 	  error (EXIT_FAILURE, errno, _("input error"));
 	}
 
-      if (readbuf[strlen (readbuf) - 1] == '\n')
-	readbuf[strlen (readbuf) - 1] = '\0';
+      if (line[strlen (line) - 1] == '\n')
+	line[strlen (line) - 1] = '\0';
 
       if (args_info.stringprep_given)
 	{
-	  p = stringprep_locale_to_utf8 (readbuf);
+	  p = stringprep_locale_to_utf8 (line);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from %s to UTF-8"),
 		   stringprep_locale_charset ());
@@ -267,9 +265,10 @@ main (int argc, char *argv[])
 
       if (args_info.punycode_encode_given)
 	{
+	  char encbuf[BUFSIZ];
 	  size_t len, len2;
 
-	  p = stringprep_locale_to_utf8 (readbuf);
+	  p = stringprep_locale_to_utf8 (line);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from %s to UTF-8"),
 		   stringprep_locale_charset ());
@@ -289,15 +288,15 @@ main (int argc, char *argv[])
 	    }
 
 	  len2 = BUFSIZ - 1;
-	  rc = punycode_encode (len, q, NULL, &len2, readbuf);
+	  rc = punycode_encode (len, q, NULL, &len2, encbuf);
 	  free (q);
 	  if (rc != PUNYCODE_SUCCESS)
 	    error (EXIT_FAILURE, 0, _("punycode_encode: %s"),
 		   punycode_strerror (rc));
 
-	  readbuf[len2] = '\0';
+	  encbuf[len2] = '\0';
 
-	  p = stringprep_utf8_to_locale (readbuf);
+	  p = stringprep_utf8_to_locale (encbuf);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from UTF-8 to %s"),
 		   stringprep_locale_charset ());
@@ -316,7 +315,7 @@ main (int argc, char *argv[])
 	  if (!q)
 	    error (EXIT_FAILURE, ENOMEM, N_("malloc"));
 
-	  rc = punycode_decode (strlen (readbuf), readbuf, &len, q, NULL);
+	  rc = punycode_decode (strlen (line), line, &len, q, NULL);
 	  if (rc != PUNYCODE_SUCCESS)
 	    {
 	      free (q);
@@ -352,7 +351,7 @@ main (int argc, char *argv[])
 
       if (args_info.idna_to_ascii_given)
 	{
-	  p = stringprep_locale_to_utf8 (readbuf);
+	  p = stringprep_locale_to_utf8 (line);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from %s to UTF-8"),
 		   stringprep_locale_charset ());
@@ -429,7 +428,7 @@ main (int argc, char *argv[])
 
       if (args_info.idna_to_unicode_given)
 	{
-	  p = stringprep_locale_to_utf8 (readbuf);
+	  p = stringprep_locale_to_utf8 (line);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from %s to UTF-8"),
 		   stringprep_locale_charset ());
@@ -510,7 +509,7 @@ main (int argc, char *argv[])
 
       if (args_info.nfkc_given)
 	{
-	  p = stringprep_locale_to_utf8 (readbuf);
+	  p = stringprep_locale_to_utf8 (line);
 	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from %s to UTF-8"),
 		   stringprep_locale_charset ());
@@ -573,6 +572,8 @@ main (int argc, char *argv[])
     }
   while (!feof (stdin) && !ferror (stdin) && (args_info.inputs_num == 0 ||
 					      cmdn < args_info.inputs_num));
+
+  free (line);
 
   return EXIT_SUCCESS;
 }

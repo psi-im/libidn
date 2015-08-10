@@ -291,6 +291,15 @@ EXTRA_DIST += test-getcwd-lgpl.c signature.h macros.h
 
 ## end   gnulib module getcwd-lgpl-tests
 
+## begin gnulib module getdelim-tests
+
+TESTS += test-getdelim
+check_PROGRAMS += test-getdelim
+MOSTLYCLEANFILES += test-getdelim.txt
+EXTRA_DIST += test-getdelim.c signature.h macros.h
+
+## end   gnulib module getdelim-tests
+
 ## begin gnulib module getdtablesize
 
 
@@ -307,6 +316,15 @@ check_PROGRAMS += test-getdtablesize
 EXTRA_DIST += test-getdtablesize.c signature.h macros.h
 
 ## end   gnulib module getdtablesize-tests
+
+## begin gnulib module getline-tests
+
+TESTS += test-getline
+check_PROGRAMS += test-getline
+MOSTLYCLEANFILES += test-getline.txt
+EXTRA_DIST += test-getline.c signature.h macros.h
+
+## end   gnulib module getline-tests
 
 ## begin gnulib module getopt-posix-tests
 
@@ -688,56 +706,6 @@ EXTRA_DIST += test-stddef.c
 
 ## end   gnulib module stddef-tests
 
-## begin gnulib module stdint
-
-BUILT_SOURCES += $(STDINT_H)
-
-# We need the following in order to create <stdint.h> when the system
-# doesn't have one that works with the given compiler.
-if GL_GENERATE_STDINT_H
-stdint.h: stdint.in.h $(top_builddir)/config.status
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's/@''HAVE_STDINT_H''@/$(HAVE_STDINT_H)/g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_STDINT_H''@|$(NEXT_STDINT_H)|g' \
-	      -e 's/@''HAVE_SYS_TYPES_H''@/$(HAVE_SYS_TYPES_H)/g' \
-	      -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
-	      -e 's/@''HAVE_SYS_INTTYPES_H''@/$(HAVE_SYS_INTTYPES_H)/g' \
-	      -e 's/@''HAVE_SYS_BITYPES_H''@/$(HAVE_SYS_BITYPES_H)/g' \
-	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
-	      -e 's/@''HAVE_LONG_LONG_INT''@/$(HAVE_LONG_LONG_INT)/g' \
-	      -e 's/@''HAVE_UNSIGNED_LONG_LONG_INT''@/$(HAVE_UNSIGNED_LONG_LONG_INT)/g' \
-	      -e 's/@''APPLE_UNIVERSAL_BUILD''@/$(APPLE_UNIVERSAL_BUILD)/g' \
-	      -e 's/@''BITSIZEOF_PTRDIFF_T''@/$(BITSIZEOF_PTRDIFF_T)/g' \
-	      -e 's/@''PTRDIFF_T_SUFFIX''@/$(PTRDIFF_T_SUFFIX)/g' \
-	      -e 's/@''BITSIZEOF_SIG_ATOMIC_T''@/$(BITSIZEOF_SIG_ATOMIC_T)/g' \
-	      -e 's/@''HAVE_SIGNED_SIG_ATOMIC_T''@/$(HAVE_SIGNED_SIG_ATOMIC_T)/g' \
-	      -e 's/@''SIG_ATOMIC_T_SUFFIX''@/$(SIG_ATOMIC_T_SUFFIX)/g' \
-	      -e 's/@''BITSIZEOF_SIZE_T''@/$(BITSIZEOF_SIZE_T)/g' \
-	      -e 's/@''SIZE_T_SUFFIX''@/$(SIZE_T_SUFFIX)/g' \
-	      -e 's/@''BITSIZEOF_WCHAR_T''@/$(BITSIZEOF_WCHAR_T)/g' \
-	      -e 's/@''HAVE_SIGNED_WCHAR_T''@/$(HAVE_SIGNED_WCHAR_T)/g' \
-	      -e 's/@''WCHAR_T_SUFFIX''@/$(WCHAR_T_SUFFIX)/g' \
-	      -e 's/@''BITSIZEOF_WINT_T''@/$(BITSIZEOF_WINT_T)/g' \
-	      -e 's/@''HAVE_SIGNED_WINT_T''@/$(HAVE_SIGNED_WINT_T)/g' \
-	      -e 's/@''WINT_T_SUFFIX''@/$(WINT_T_SUFFIX)/g' \
-	      < $(srcdir)/stdint.in.h; \
-	} > $@-t && \
-	mv $@-t $@
-else
-stdint.h: $(top_builddir)/config.status
-	rm -f $@
-endif
-MOSTLYCLEANFILES += stdint.h stdint.h-t
-
-EXTRA_DIST += stdint.in.h
-
-## end   gnulib module stdint
-
 ## begin gnulib module stdint-tests
 
 TESTS += test-stdint
@@ -753,111 +721,6 @@ check_PROGRAMS += test-stdio
 EXTRA_DIST += test-stdio.c
 
 ## end   gnulib module stdio-tests
-
-## begin gnulib module stdlib
-
-BUILT_SOURCES += stdlib.h
-
-# We need the following in order to create <stdlib.h> when the system
-# doesn't have one that works with the given compiler.
-stdlib.h: stdlib.in.h $(top_builddir)/config.status $(CXXDEFS_H) \
-  $(_NORETURN_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
-	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_STDLIB_H''@|$(NEXT_STDLIB_H)|g' \
-	      -e 's/@''GNULIB__EXIT''@/$(GNULIB__EXIT)/g' \
-	      -e 's/@''GNULIB_ATOLL''@/$(GNULIB_ATOLL)/g' \
-	      -e 's/@''GNULIB_CALLOC_POSIX''@/$(GNULIB_CALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_CANONICALIZE_FILE_NAME''@/$(GNULIB_CANONICALIZE_FILE_NAME)/g' \
-	      -e 's/@''GNULIB_GETLOADAVG''@/$(GNULIB_GETLOADAVG)/g' \
-	      -e 's/@''GNULIB_GETSUBOPT''@/$(GNULIB_GETSUBOPT)/g' \
-	      -e 's/@''GNULIB_GRANTPT''@/$(GNULIB_GRANTPT)/g' \
-	      -e 's/@''GNULIB_MALLOC_POSIX''@/$(GNULIB_MALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_MBTOWC''@/$(GNULIB_MBTOWC)/g' \
-	      -e 's/@''GNULIB_MKDTEMP''@/$(GNULIB_MKDTEMP)/g' \
-	      -e 's/@''GNULIB_MKOSTEMP''@/$(GNULIB_MKOSTEMP)/g' \
-	      -e 's/@''GNULIB_MKOSTEMPS''@/$(GNULIB_MKOSTEMPS)/g' \
-	      -e 's/@''GNULIB_MKSTEMP''@/$(GNULIB_MKSTEMP)/g' \
-	      -e 's/@''GNULIB_MKSTEMPS''@/$(GNULIB_MKSTEMPS)/g' \
-	      -e 's/@''GNULIB_POSIX_OPENPT''@/$(GNULIB_POSIX_OPENPT)/g' \
-	      -e 's/@''GNULIB_PTSNAME''@/$(GNULIB_PTSNAME)/g' \
-	      -e 's/@''GNULIB_PTSNAME_R''@/$(GNULIB_PTSNAME_R)/g' \
-	      -e 's/@''GNULIB_PUTENV''@/$(GNULIB_PUTENV)/g' \
-	      -e 's/@''GNULIB_QSORT_R''@/$(GNULIB_QSORT_R)/g' \
-	      -e 's/@''GNULIB_RANDOM''@/$(GNULIB_RANDOM)/g' \
-	      -e 's/@''GNULIB_RANDOM_R''@/$(GNULIB_RANDOM_R)/g' \
-	      -e 's/@''GNULIB_REALLOC_POSIX''@/$(GNULIB_REALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_REALPATH''@/$(GNULIB_REALPATH)/g' \
-	      -e 's/@''GNULIB_RPMATCH''@/$(GNULIB_RPMATCH)/g' \
-	      -e 's/@''GNULIB_SECURE_GETENV''@/$(GNULIB_SECURE_GETENV)/g' \
-	      -e 's/@''GNULIB_SETENV''@/$(GNULIB_SETENV)/g' \
-	      -e 's/@''GNULIB_STRTOD''@/$(GNULIB_STRTOD)/g' \
-	      -e 's/@''GNULIB_STRTOLL''@/$(GNULIB_STRTOLL)/g' \
-	      -e 's/@''GNULIB_STRTOULL''@/$(GNULIB_STRTOULL)/g' \
-	      -e 's/@''GNULIB_SYSTEM_POSIX''@/$(GNULIB_SYSTEM_POSIX)/g' \
-	      -e 's/@''GNULIB_UNLOCKPT''@/$(GNULIB_UNLOCKPT)/g' \
-	      -e 's/@''GNULIB_UNSETENV''@/$(GNULIB_UNSETENV)/g' \
-	      -e 's/@''GNULIB_WCTOMB''@/$(GNULIB_WCTOMB)/g' \
-	      < $(srcdir)/stdlib.in.h | \
-	  sed -e 's|@''HAVE__EXIT''@|$(HAVE__EXIT)|g' \
-	      -e 's|@''HAVE_ATOLL''@|$(HAVE_ATOLL)|g' \
-	      -e 's|@''HAVE_CANONICALIZE_FILE_NAME''@|$(HAVE_CANONICALIZE_FILE_NAME)|g' \
-	      -e 's|@''HAVE_DECL_GETLOADAVG''@|$(HAVE_DECL_GETLOADAVG)|g' \
-	      -e 's|@''HAVE_GETSUBOPT''@|$(HAVE_GETSUBOPT)|g' \
-	      -e 's|@''HAVE_GRANTPT''@|$(HAVE_GRANTPT)|g' \
-	      -e 's|@''HAVE_MKDTEMP''@|$(HAVE_MKDTEMP)|g' \
-	      -e 's|@''HAVE_MKOSTEMP''@|$(HAVE_MKOSTEMP)|g' \
-	      -e 's|@''HAVE_MKOSTEMPS''@|$(HAVE_MKOSTEMPS)|g' \
-	      -e 's|@''HAVE_MKSTEMP''@|$(HAVE_MKSTEMP)|g' \
-	      -e 's|@''HAVE_MKSTEMPS''@|$(HAVE_MKSTEMPS)|g' \
-	      -e 's|@''HAVE_POSIX_OPENPT''@|$(HAVE_POSIX_OPENPT)|g' \
-	      -e 's|@''HAVE_PTSNAME''@|$(HAVE_PTSNAME)|g' \
-	      -e 's|@''HAVE_PTSNAME_R''@|$(HAVE_PTSNAME_R)|g' \
-	      -e 's|@''HAVE_RANDOM''@|$(HAVE_RANDOM)|g' \
-	      -e 's|@''HAVE_RANDOM_H''@|$(HAVE_RANDOM_H)|g' \
-	      -e 's|@''HAVE_RANDOM_R''@|$(HAVE_RANDOM_R)|g' \
-	      -e 's|@''HAVE_REALPATH''@|$(HAVE_REALPATH)|g' \
-	      -e 's|@''HAVE_RPMATCH''@|$(HAVE_RPMATCH)|g' \
-	      -e 's|@''HAVE_SECURE_GETENV''@|$(HAVE_SECURE_GETENV)|g' \
-	      -e 's|@''HAVE_DECL_SETENV''@|$(HAVE_DECL_SETENV)|g' \
-	      -e 's|@''HAVE_STRTOD''@|$(HAVE_STRTOD)|g' \
-	      -e 's|@''HAVE_STRTOLL''@|$(HAVE_STRTOLL)|g' \
-	      -e 's|@''HAVE_STRTOULL''@|$(HAVE_STRTOULL)|g' \
-	      -e 's|@''HAVE_STRUCT_RANDOM_DATA''@|$(HAVE_STRUCT_RANDOM_DATA)|g' \
-	      -e 's|@''HAVE_SYS_LOADAVG_H''@|$(HAVE_SYS_LOADAVG_H)|g' \
-	      -e 's|@''HAVE_UNLOCKPT''@|$(HAVE_UNLOCKPT)|g' \
-	      -e 's|@''HAVE_DECL_UNSETENV''@|$(HAVE_DECL_UNSETENV)|g' \
-	      -e 's|@''REPLACE_CALLOC''@|$(REPLACE_CALLOC)|g' \
-	      -e 's|@''REPLACE_CANONICALIZE_FILE_NAME''@|$(REPLACE_CANONICALIZE_FILE_NAME)|g' \
-	      -e 's|@''REPLACE_MALLOC''@|$(REPLACE_MALLOC)|g' \
-	      -e 's|@''REPLACE_MBTOWC''@|$(REPLACE_MBTOWC)|g' \
-	      -e 's|@''REPLACE_MKSTEMP''@|$(REPLACE_MKSTEMP)|g' \
-	      -e 's|@''REPLACE_PTSNAME''@|$(REPLACE_PTSNAME)|g' \
-	      -e 's|@''REPLACE_PTSNAME_R''@|$(REPLACE_PTSNAME_R)|g' \
-	      -e 's|@''REPLACE_PUTENV''@|$(REPLACE_PUTENV)|g' \
-	      -e 's|@''REPLACE_QSORT_R''@|$(REPLACE_QSORT_R)|g' \
-	      -e 's|@''REPLACE_RANDOM_R''@|$(REPLACE_RANDOM_R)|g' \
-	      -e 's|@''REPLACE_REALLOC''@|$(REPLACE_REALLOC)|g' \
-	      -e 's|@''REPLACE_REALPATH''@|$(REPLACE_REALPATH)|g' \
-	      -e 's|@''REPLACE_SETENV''@|$(REPLACE_SETENV)|g' \
-	      -e 's|@''REPLACE_STRTOD''@|$(REPLACE_STRTOD)|g' \
-	      -e 's|@''REPLACE_UNSETENV''@|$(REPLACE_UNSETENV)|g' \
-	      -e 's|@''REPLACE_WCTOMB''@|$(REPLACE_WCTOMB)|g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _Noreturn/r $(_NORETURN_H)' \
-	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)'; \
-	} > $@-t && \
-	mv $@-t $@
-MOSTLYCLEANFILES += stdlib.h stdlib.h-t
-
-EXTRA_DIST += stdlib.in.h
-
-## end   gnulib module stdlib
 
 ## begin gnulib module strerror-tests
 

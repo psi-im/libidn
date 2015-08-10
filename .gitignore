@@ -173,6 +173,7 @@ gl/progname.lo
 gl/progname.o
 gl/stddef.h
 gl/stdio.h
+gl/stdlib.h
 gl/string.h
 gl/sys/
 gl/unistd.h

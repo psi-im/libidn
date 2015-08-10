@@ -74,8 +74,12 @@ AC_DEFUN([gl_EARLY],
   # Code from module gendocs:
   # Code from module getcwd-lgpl:
   # Code from module getcwd-lgpl-tests:
+  # Code from module getdelim:
+  # Code from module getdelim-tests:
   # Code from module getdtablesize:
   # Code from module getdtablesize-tests:
+  # Code from module getline:
+  # Code from module getline-tests:
   # Code from module getopt-gnu:
   # Code from module getopt-posix:
   # Code from module getopt-posix-tests:
@@ -112,6 +116,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module pmccabe2html:
   # Code from module progname:
   # Code from module putenv:
+  # Code from module realloc-posix:
   # Code from module same-inode:
   # Code from module setenv:
   # Code from module setenv-tests:
@@ -198,6 +203,18 @@ AC_DEFUN([gl_INIT],
     [AM_][XGETTEXT_OPTION([--flag=error:3:c-format])
      AM_][XGETTEXT_OPTION([--flag=error_at_line:5:c-format])])
   AC_REQUIRE([gl_EXTERN_INLINE])
+  gl_FUNC_GETDELIM
+  if test $HAVE_GETDELIM = 0 || test $REPLACE_GETDELIM = 1; then
+    AC_LIBOBJ([getdelim])
+    gl_PREREQ_GETDELIM
+  fi
+  gl_STDIO_MODULE_INDICATOR([getdelim])
+  gl_FUNC_GETLINE
+  if test $REPLACE_GETLINE = 1; then
+    AC_LIBOBJ([getline])
+    gl_PREREQ_GETLINE
+  fi
+  gl_STDIO_MODULE_INDICATOR([getline])
   gl_FUNC_GETOPT_GNU
   if test $REPLACE_GETOPT = 1; then
     AC_LIBOBJ([getopt])
@@ -240,13 +257,21 @@ AC_DEFUN([gl_INIT],
   if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
     AC_LIBOBJ([msvc-nothrow])
   fi
+  gl_MULTIARCH
   AC_PATH_PROG([PMCCABE], [pmccabe], [false])
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+  gl_FUNC_REALLOC_POSIX
+  if test $REPLACE_REALLOC = 1; then
+    AC_LIBOBJ([realloc])
+  fi
+  gl_STDLIB_MODULE_INDICATOR([realloc-posix])
   gt_TYPE_SSIZE_T
   gl_STDARG_H
   gl_STDDEF_H
+  gl_STDINT_H
   gl_STDIO_H
+  gl_STDLIB_H
   gl_FUNC_STRERROR
   if test $REPLACE_STRERROR = 1; then
     AC_LIBOBJ([strerror])
@@ -370,7 +395,6 @@ changequote([, ])dnl
   fi
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_MALLOCA
-  gl_MULTIARCH
   gl_FUNC_OPEN
   if test $REPLACE_OPEN = 1; then
     AC_LIBOBJ([open])
@@ -397,10 +421,8 @@ changequote([, ])dnl
   gl_SYS_STAT_MODULE_INDICATOR([stat])
   gl_STDALIGN_H
   AM_STDBOOL_H
-  gl_STDINT_H
   AC_REQUIRE([gt_TYPE_WCHAR_T])
   AC_REQUIRE([gt_TYPE_WINT_T])
-  gl_STDLIB_H
   gl_FUNC_SYMLINK
   if test $HAVE_SYMLINK = 0 || test $REPLACE_SYMLINK = 1; then
     AC_LIBOBJ([symlink])
@@ -532,6 +554,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/errno.in.h
   lib/error.c
   lib/error.h
+  lib/getdelim.c
+  lib/getline.c
   lib/getopt.c
   lib/getopt.in.h
   lib/getopt1.c
@@ -544,9 +568,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/msvc-nothrow.h
   lib/progname.c
   lib/progname.h
+  lib/realloc.c
   lib/stdarg.in.h
   lib/stddef.in.h
+  lib/stdint.in.h
   lib/stdio.in.h
+  lib/stdlib.in.h
   lib/strerror-override.c
   lib/strerror-override.h
   lib/strerror.c
@@ -577,7 +604,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/fdopen.m4
   m4/fstat.m4
   m4/getcwd.m4
+  m4/getdelim.m4
   m4/getdtablesize.m4
+  m4/getline.m4
   m4/getopt.m4
   m4/gettimeofday.m4
   m4/gnulib-common.m4
@@ -599,6 +628,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/open.m4
   m4/pathmax.m4
   m4/putenv.m4
+  m4/realloc.m4
   m4/setenv.m4
   m4/ssize_t.m4
   m4/stat.m4
@@ -642,7 +672,9 @@ AC_DEFUN([gl_FILE_LIST], [
   tests/test-fstat.c
   tests/test-fwrite.c
   tests/test-getcwd-lgpl.c
+  tests/test-getdelim.c
   tests/test-getdtablesize.c
+  tests/test-getline.c
   tests/test-getopt.c
   tests/test-getopt.h
   tests/test-getopt_long.h
@@ -706,8 +738,6 @@ AC_DEFUN([gl_FILE_LIST], [
   tests=lib/stat.c
   tests=lib/stdalign.in.h
   tests=lib/stdbool.in.h
-  tests=lib/stdint.in.h
-  tests=lib/stdlib.in.h
   tests=lib/symlink.c
   tests=lib/sys_stat.in.h
   tests=lib/sys_time.in.h
