@@ -243,8 +243,12 @@ gltests/test-fwrite
 gltests/test-fwrite.o
 gltests/test-getcwd-lgpl
 gltests/test-getcwd-lgpl.o
+gltests/test-getdelim
+gltests/test-getdelim.o
 gltests/test-getdtablesize
 gltests/test-getdtablesize.o
+gltests/test-getline
+gltests/test-getline.o
 gltests/test-getopt
 gltests/test-getopt.o
 gltests/test-gettimeofday
