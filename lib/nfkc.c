@@ -1,5 +1,5 @@
 /* nfkc.c --- Unicode normalization utilities.
-   Copyright (C) 2002-2015 Simon Josefsson
+   Copyright (C) 2002-2016 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -1086,6 +1086,16 @@ stringprep_ucs4_to_utf8 (const uint32_t * str, ssize_t len,
 char *
 stringprep_utf8_nfkc_normalize (const char *str, ssize_t len)
 {
+  size_t n;
+
+  if (len < 0)
+    n = strlen (str);
+  else
+    n = len;
+
+  if (u8_check ((const uint8_t *) str, n))
+    return NULL;
+
   return g_utf8_normalize (str, len, G_NORMALIZE_NFKC);
 }
 

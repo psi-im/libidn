@@ -619,6 +619,8 @@ tests/Makefile.in
 tests/libutils.a
 tests/tst_badutf8
 tests/tst_badutf8.o
+tests/tst_badutf8nfkc
+tests/tst_badutf8nfkc.o
 tests/tst_idna
 tests/tst_idna.o
 tests/tst_idna2
