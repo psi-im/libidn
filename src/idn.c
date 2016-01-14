@@ -200,8 +200,9 @@ main (int argc, char *argv[])
 	  error (EXIT_FAILURE, errno, _("input error"));
 	}
 
-      if (line[strlen (line) - 1] == '\n')
-	line[strlen (line) - 1] = '\0';
+      if (strlen (line) > 0)
+	if (line[strlen (line) - 1] == '\n')
+	  line[strlen (line) - 1] = '\0';
 
       if (args_info.stringprep_given)
 	{
