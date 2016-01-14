@@ -4,6 +4,10 @@ See the end for copying conditions.
 
 * Version 1.33 (unreleased) [beta]
 
+** libidn: Fix out-of-bounds stack read in idna_to_ascii_4i.
+See tests/tst_toascii64oob.c for regression check (and the comment in
+it how to use it).  Reported by Hanno Böck <hanno@hboeck.de>.
+
 ** idn: Solve out-of-bounds-read by replacing fgets with getline.
 Reported by Hanno Böck <hanno@hboeck.de>.
 
