@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2015 Free Software Foundation, Inc.
+# Copyright (C) 2002-2016 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,7 +37,11 @@ AC_DEFUN([lgl_EARLY],
   m4_pattern_allow([^gl_ES$])dnl a valid locale name
   m4_pattern_allow([^gl_LIBOBJS$])dnl a variable
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
+
+  # Pre-early section.
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   AC_REQUIRE([gl_PROG_AR_RANLIB])
+
   AC_REQUIRE([AM_PROG_CC_C_O])
   # Code from module absolute-header:
   # Code from module alloca-opt:
@@ -46,10 +50,11 @@ AC_DEFUN([lgl_EARLY],
   # Code from module c-ctype-tests:
   # Code from module c-strcase:
   # Code from module c-strcase-tests:
+  # Code from module ctype:
+  # Code from module ctype-tests:
   # Code from module environ:
   # Code from module environ-tests:
   # Code from module extensions:
-  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
   # Code from module extern-inline:
   # Code from module gettext-h:
   # Code from module gperf:
@@ -239,6 +244,7 @@ changequote([, ])dnl
   gl_FUNC_ALLOCA
   gt_LOCALE_FR
   gt_LOCALE_TR_UTF8
+  gl_CTYPE_H
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
   gl_INTTYPES_H
@@ -423,6 +429,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/absolute-header.m4
   m4/alloca.m4
   m4/codeset.m4
+  m4/ctype.m4
   m4/eealloc.m4
   m4/environ.m4
   m4/extensions.m4
@@ -485,6 +492,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests/test-c-strcase.sh
   tests/test-c-strcasecmp.c
   tests/test-c-strncasecmp.c
+  tests/test-ctype.c
   tests/test-environ.c
   tests/test-iconv.c
   tests/test-init.sh
@@ -519,6 +527,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests/unistr/test-u8-mbtoucr.c
   tests/unistr/test-u8-uctomb.c
   tests=lib/alloca.in.h
+  tests=lib/ctype.in.h
   tests=lib/glthread/lock.c
   tests=lib/glthread/lock.h
   tests=lib/glthread/thread.c

@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2015 Free Software Foundation, Inc.
+# Copyright (C) 2002-2016 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=fcntl-h-tests --avoid=stdlib-tests --avoid=string-tests --avoid=sys_stat-tests --avoid=time-tests --avoid=unistd-tests --avoid=update-copyright-tests --avoid=wchar-tests --no-conditional-dependencies --libtool --macro-prefix=gl --no-vc-files autobuild csharpcomp-script csharpexec-script error fdl-1.3 gendocs getline getopt-gnu gnupload maintainer-makefile manywarnings pmccabe2html progname update-copyright useless-if-before-free valgrind-tests vc-list-files version-etc warnings
+#   gnulib-tool --import --local-dir=gl/override --lib=libgnu --source-base=gl --m4-base=gl/m4 --doc-base=doc --tests-base=gltests --aux-dir=build-aux --with-tests --avoid=fcntl-h-tests --avoid=stdlib-tests --avoid=string-tests --avoid=sys_stat-tests --avoid=time-tests --avoid=unistd-tests --avoid=update-copyright-tests --avoid=wchar-tests --no-conditional-dependencies --libtool --macro-prefix=gl --no-vc-files autobuild csharpcomp-script csharpexec-script error fdl-1.3 gendocs getline getopt-gnu gnupload maintainer-makefile manywarnings pmccabe2html progname update-copyright useless-if-before-free valgrind-tests vc-list-files version-etc warnings
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([gl/override])
