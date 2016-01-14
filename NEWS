@@ -1,5 +1,5 @@
 Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
-Copyright (C) 2002-2015 Simon Josefsson
+Copyright (C) 2002-2016 Simon Josefsson
 See the end for copying conditions.
 
 * Version 1.33 (unreleased) [beta]
@@ -10,6 +10,10 @@ it how to use it).  Reported by Hanno Böck <hanno@hboeck.de>.
 
 ** idn: Solve out-of-bounds-read by replacing fgets with getline.
 Reported by Hanno Böck <hanno@hboeck.de>.
+
+** libidn: stringprep_utf8_nfkc_normalize reject invalid UTF-8.
+It was always documented to only accept UTF-8 data, but now it doesn't
+crash when presented with such data.
 
 ** Dropped valgrind suppressions file, should no longer be needed.
 
