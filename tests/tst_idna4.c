@@ -1,5 +1,5 @@
 /* tst_idna4.c --- Self tests for memory leak regression.
- * Copyright (C) 2011-2015 Simon Josefsson
+ * Copyright (C) 2011-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *

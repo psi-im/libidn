@@ -1,5 +1,5 @@
 /* idn.c --- Command line interface to libidn.
- * Copyright (C) 2003-2015 Simon Josefsson
+ * Copyright (C) 2003-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
