@@ -212,6 +212,8 @@ step3:
       }
     if (i < 64)
       out[i] = '\0';
+    else
+      return IDNA_INVALID_LENGTH;
     if (inasciirange)
       goto step8;
   }
@@ -266,7 +268,7 @@ step3:
 
 step8:
   free (src);
-  if (strlen (out) < 1 || strlen (out) > 63)
+  if (strlen (out) < 1)
     return IDNA_INVALID_LENGTH;
 
   return IDNA_SUCCESS;
