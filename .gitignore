@@ -641,6 +641,8 @@ tests/tst_symbols
 tests/tst_symbols.o
 tests/tst_tld
 tests/tst_tld.o
+tests/tst_toascii64oob
+tests/tst_toascii64oob.o
 tests/tst_toutf8
 tests/tst_toutf8.o
 tests/tst_utf8crash
