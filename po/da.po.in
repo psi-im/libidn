@@ -1,15 +1,16 @@
 # Danish translation of the libidn gettext message catalogue
-# Copyright (C) 2015-2016 Free Software Foundation, Inc.
+# Copyright (C) 2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the libidn package.
 # Morten Bo Johansen <mbj@spamcop.net>, 2004-2011.
 # Joe Hansen <joedalton2@yahoo.dk>, 2015.
+# Korrekturlæsning 2015: Aputsiak Niels Janussen.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.29\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
 "POT-Creation-Date: 2014-08-10 22:50+0200\n"
-"PO-Revision-Date: 2015-05-01 17:38+0100\n"
+"PO-Revision-Date: 2015-08-16 17:38+0100\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -126,7 +127,7 @@ msgstr "Normalisering af unicode mislykkedes (intern fejl)"
 
 #: lib/strerror-tld.c:72
 msgid "Code points prohibited by top-level domain"
-msgstr "Kodepunkter ikke tilladt af top-domæne"
+msgstr "Kodepunkter tillades ikke af domæne på øverste niveau"
 
 #: lib/strerror-tld.c:76
 msgid "Missing input"
