@@ -8,12 +8,12 @@ See the end for copying conditions.
 See tests/tst_toascii64oob.c for regression check (and the comment in
 it how to use it).  Reported by Hanno Böck <hanno@hboeck.de>.
 
-** idn: Solve out-of-bounds-read by replacing fgets with getline.
-Reported by Hanno Böck <hanno@hboeck.de>.
+** idn: Solve out-of-bounds-read when reading one zero byte as input.
+Also replaced fgets with getline.  Reported by Hanno Böck <hanno@hboeck.de>.
 
 ** libidn: stringprep_utf8_nfkc_normalize reject invalid UTF-8.
 It was always documented to only accept UTF-8 data, but now it doesn't
-crash when presented with such data.
+crash when presented with such data.  Reported by Hanno Böck.
 
 ** Dropped valgrind suppressions file, should no longer be needed.
 
