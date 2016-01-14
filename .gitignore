@@ -411,6 +411,7 @@ lib/gltests/Makefile.in
 lib/gltests/alloca.h
 lib/gltests/arg-nonnull.h
 lib/gltests/c++defs.h
+lib/gltests/ctype.h
 lib/gltests/dummy.o
 lib/gltests/glthread/.deps/
 lib/gltests/glthread/.dirstamp
