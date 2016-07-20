@@ -37,7 +37,16 @@
 
 /* This test requires you to build with CFLAGS="-fsanitize=address"
    and disable valgrind since asan and valgrind conflict.  Thus
-   normally a bit uneffective, but may be useful to have around. */
+   normally a bit uneffective, but may be useful to have around.
+
+   make
+   make
+   make clean
+   make CFLAGS="-fsanitize=address" WERROR_CFLAGS=
+   make CFLAGS="-fsanitize=address" WERROR_CFLAGS= check VALGRIND=
+
+   Revert patch in URL above to trigger this self test.
+ */
 
 void
 doit (void)
