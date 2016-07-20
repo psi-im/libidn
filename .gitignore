@@ -435,6 +435,8 @@ lib/gltests/test-c-strcasecmp
 lib/gltests/test-c-strcasecmp.o
 lib/gltests/test-c-strncasecmp
 lib/gltests/test-c-strncasecmp.o
+lib/gltests/test-ctype
+lib/gltests/test-ctype.o
 lib/gltests/test-environ
 lib/gltests/test-environ.o
 lib/gltests/test-iconv
