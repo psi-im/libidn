@@ -4,6 +4,9 @@ See the end for copying conditions.
 
 * Version 1.34 (unreleased) [beta]
 
+** i18n: Added Swedish translation.
+Thanks to Josef Andersson.
+
 ** API and ABI is backwards compatible with the previous version.
 
 * Version 1.33 (released 2016-07-20) [beta]
