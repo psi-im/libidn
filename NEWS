@@ -2,7 +2,7 @@ Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
 Copyright (C) 2002-2016 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.33 (unreleased) [beta]
+* Version 1.33 (released 2016-07-20) [beta]
 
 ** libidn: Fix out-of-bounds stack read in idna_to_ascii_4i.
 See tests/tst_toascii64oob.c for regression check (and the comment in
