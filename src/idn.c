@@ -419,7 +419,7 @@ main (int argc, char *argv[])
 	      size_t i;
 	      for (i = 0; p[i]; i++)
 		fprintf (stderr, "output[%lu] = U+%04x\n",
-			 (unsigned long) i, p[i]);
+			 (unsigned long) i, (unsigned) p[i]);
 	    }
 
 	  fprintf (stdout, "%s\n", p);

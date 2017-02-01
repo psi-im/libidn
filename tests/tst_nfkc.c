@@ -68,18 +68,18 @@ void
 doit (void)
 {
   char *out;
-  size_t i;
+  unsigned i;
 
   for (i = 0; i < sizeof (nfkc) / sizeof (nfkc[0]); i++)
     {
       if (debug)
-	printf ("NFKC entry %ld\n", i);
+	printf ("NFKC entry %u\n", i);
 
       out = stringprep_utf8_nfkc_normalize (nfkc[i].in,
 					    (ssize_t) strlen (nfkc[i].in));
       if (out == NULL)
 	{
-	  fail ("NFKC entry %ld failed fatally\n", i);
+	  fail ("NFKC entry %u failed fatally\n", i);
 	  continue;
 	}
 
@@ -114,7 +114,7 @@ doit (void)
       if (strlen (nfkc[i].out) != strlen (out) ||
 	  memcmp (nfkc[i].out, out, strlen (out)) != 0)
 	{
-	  fail ("NFKC entry %ld failed\n", i);
+	  fail ("NFKC entry %u failed\n", i);
 	  if (debug)
 	    printf ("ERROR\n");
 	}

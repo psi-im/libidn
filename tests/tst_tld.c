@@ -80,7 +80,7 @@ const Tld_table * my_tld_tables[] =
 void
 doit (void)
 {
-  size_t i;
+  unsigned i;
   const Tld_table *tldtable;
   char *out;
   size_t errpos;
@@ -206,7 +206,7 @@ doit (void)
   for (i = 0; i < sizeof (tld) / sizeof (tld[0]); i++)
     {
       if (debug)
-	printf ("TLD entry %ld: %s\n", i, tld[i].name);
+	printf ("TLD entry %u: %s\n", i, tld[i].name);
 
       if (debug)
 	{
@@ -217,7 +217,7 @@ doit (void)
       tldtable = tld_default_table (tld[i].tld, NULL);
       if (tldtable == NULL)
 	{
-	  fail ("TLD entry %ld tld_get_table (%s)\n", i, tld[i].tld);
+	  fail ("TLD entry %u tld_get_table (%s)\n", i, tld[i].tld);
 	  if (debug)
 	    printf ("FATAL\n");
 	  continue;
@@ -226,7 +226,7 @@ doit (void)
       rc = tld_check_4t (tld[i].in, tld[i].inlen, &errpos, tldtable);
       if (rc != tld[i].rc)
 	{
-	  fail ("TLD entry %ld failed: %d\n", i, rc);
+	  fail ("TLD entry %u failed: %d\n", i, rc);
 	  if (debug)
 	    printf ("FATAL\n");
 	  continue;
@@ -237,7 +237,7 @@ doit (void)
 
       if (rc != tld[i].rc)
 	{
-	  fail ("TLD entry %ld failed\n", i);
+	  fail ("TLD entry %u failed\n", i);
 	  if (debug)
 	    printf ("ERROR\n");
 	}
@@ -245,12 +245,12 @@ doit (void)
 	{
 	  if (debug)
 	    printf ("returned errpos %ld expected errpos %ld\n",
-		    errpos, tld[i].errpos);
+		    (long) errpos, (long) tld[i].errpos);
 
 	  if (tld[i].errpos != errpos)
 	    {
-	      fail ("TLD entry %ld failed because errpos %ld != %ld\n", i,
-		    tld[i].errpos, errpos);
+	      fail ("TLD entry %u failed because errpos %ld != %ld\n", i,
+		    (long) tld[i].errpos, (long) errpos);
 	      if (debug)
 		printf ("ERROR\n");
 	    }
@@ -262,12 +262,12 @@ doit (void)
 	rc = tld_check_8z (tld[i].example, &errpos, NULL);
 	if (rc != tld[i].rc)
 	  {
-	    fail ("TLD entry %ld failed\n", i);
+	    fail ("TLD entry %u failed\n", i);
 	    if (debug)
 	      printf ("ERROR\n");
 	  }
 	if (debug)
-	  printf ("TLD entry %ld tld_check_8z (%s)\n", i, tld[i].example);
+	  printf ("TLD entry %u tld_check_8z (%s)\n", i, tld[i].example);
       }
     }
 }

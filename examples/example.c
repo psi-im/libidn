@@ -55,7 +55,7 @@ main (void)
 
   printf ("Before locale2utf8 (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   p = stringprep_locale_to_utf8 (buf);
@@ -69,7 +69,7 @@ main (void)
 
   printf ("Before stringprep (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = stringprep (buf, BUFSIZ, 0, stringprep_nameprep);
@@ -79,7 +79,7 @@ main (void)
     {
       printf ("After stringprep (length %ld): ", (long int) strlen (buf));
       for (i = 0; i < strlen (buf); i++)
-	printf ("%02x ", buf[i] & 0xFF);
+	printf ("%02x ", (unsigned) buf[i] & 0xFF);
       printf ("\n");
     }
 

@@ -110,7 +110,7 @@ doit (void)
   /* Iterate through all error codes. */
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -126,13 +126,13 @@ doit (void)
 	    break;
 	  }
 	if (debug)
-	  printf ("idna %ld: %s\n", i, p);
+	  printf ("idna %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -141,13 +141,13 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("pr29 %ld: %s\n", i, p);
+	  printf ("pr29 %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -156,13 +156,13 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("punycode %ld: %s\n", i, p);
+	  printf ("punycode %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -183,13 +183,13 @@ doit (void)
 	    break;
 	  }
 	if (debug)
-	  printf ("stringprep %ld: %s\n", i, p);
+	  printf ("stringprep %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -198,7 +198,7 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("tld %ld: %s\n", i, p);
+	  printf ("tld %u: %s\n", i, p);
 	last_p = p;
       }
   }

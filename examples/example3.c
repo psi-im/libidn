@@ -56,7 +56,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = idna_to_ascii_lz (buf, &p, 0);
@@ -68,7 +68,7 @@ main (void)
 
   printf ("ACE label (length %ld): '%s'\n", (long int) strlen (p), p);
   for (i = 0; i < strlen (p); i++)
-    printf ("%02x ", p[i] & 0xFF);
+    printf ("%02x ", (unsigned) p[i] & 0xFF);
   printf ("\n");
 
   free (p);

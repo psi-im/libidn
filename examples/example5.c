@@ -68,7 +68,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   p = stringprep_locale_to_utf8 (buf);

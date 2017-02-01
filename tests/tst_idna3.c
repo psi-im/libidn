@@ -59,13 +59,13 @@ doit (void)
 {
   int rc;
   char *out = NULL;
-  size_t i;
+  unsigned i;
 
   for (i = 0; i < sizeof (idna) / sizeof (idna[0]); i++)
     {
       rc = idna_to_unicode_8z8z (idna[i].in, &out, 0);
       if (rc != IDNA_SUCCESS)
-	fail ("IDNA3[%ld] failed %d\n", i, rc);
+	fail ("IDNA3[%u] failed %d\n", i, rc);
 
       if (debug && rc == IDNA_SUCCESS)
 	{
@@ -75,9 +75,9 @@ doit (void)
 	}
 
       if (strcmp (out, idna[i].out) != 0)
-	fail ("IDNA3[%ld] failed\n", i);
+	fail ("IDNA3[%u] failed\n", i);
       else if (debug)
-	printf ("IDNA3[%ld] success\n", i);
+	printf ("IDNA3[%u] success\n", i);
 
       if (out)
 	idn_free (out);

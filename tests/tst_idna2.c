@@ -461,14 +461,14 @@ static const struct idna idna[] = {
 void
 doit (void)
 {
-  size_t i;
+  unsigned i;
   char *out;
   int rc;
 
   for (i = 0; i < sizeof (idna) / sizeof (idna[0]); i++)
     {
       if (debug)
-	printf ("IDNA2 entry %ld\n", i);
+	printf ("IDNA2 entry %u\n", i);
 
       if (debug)
 	{
@@ -487,7 +487,7 @@ doit (void)
 			     IDNA_USE_STD3_ASCII_RULES);
       if (rc != IDNA_SUCCESS && strlen (idna[i].out) > 0)
 	{
-	  fail ("IDNA2 entry %ld failed: %d\n", i, rc);
+	  fail ("IDNA2 entry %u failed: %d\n", i, rc);
 	  continue;
 	}
 
@@ -504,7 +504,7 @@ doit (void)
 	  if (strlen (idna[i].out) != strlen (out) ||
 	      strcasecmp (idna[i].out, out) != 0)
 	    {
-	      fail ("IDNA2 entry %ld failed\n", i);
+	      fail ("IDNA2 entry %u failed\n", i);
 	      if (debug)
 		printf ("ERROR\n");
 	    }
