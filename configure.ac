@@ -115,6 +115,16 @@ AM_CONDITIONAL(CSHARP, test "$enable_csharp" = yes)
 
 sj_UPDATE_HEADER_VERSION([$srcdir/lib/stringprep.h])
 
+ubsan=no
+AC_ARG_ENABLE([ubsan],
+  [AS_HELP_STRING([--enable-ubsan], [Turn on Undefined Behavior Sanitizer (UBSan)])],
+  [
+    if test "$enableval" = yes; then
+      ubsan=yes
+      CFLAGS=$CFLAGS" -fsanitize=undefined -fno-sanitize-recover=undefined"
+    fi
+  ])
+
 asan=no
 AC_ARG_ENABLE([asan],
   [AS_HELP_STRING([--enable-asan], [Turn on Address Sanitizer (ASan)])],
@@ -216,5 +226,6 @@ AC_MSG_NOTICE([summary of build options:
   TLD code:          $enable_tld
   Build Java port:   $enable_java
   Build C# port:     $enable_csharp
-  Address Sanitizer: $enable_asan
+  Address Sanitizer: $asan
+  UB Sanitizer:      $ubsan
 ])
