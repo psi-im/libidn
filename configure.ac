@@ -115,6 +115,16 @@ AM_CONDITIONAL(CSHARP, test "$enable_csharp" = yes)
 
 sj_UPDATE_HEADER_VERSION([$srcdir/lib/stringprep.h])
 
+asan=no
+AC_ARG_ENABLE([asan],
+  [AS_HELP_STRING([--enable-asan], [Turn on Address Sanitizer (ASan)])],
+  [
+    if test "$enableval" = yes; then
+      asan=yes
+      CFLAGS=$CFLAGS" -fsanitize=address -fno-omit-frame-pointer"
+    fi
+  ])
+
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],
 		  [turn on lots of GCC warnings (for developers)])],
@@ -193,16 +203,18 @@ AC_OUTPUT
 
 AC_MSG_NOTICE([summary of build options:
 
-  version:          ${VERSION} shared $LT_CURRENT:$LT_REVISION:$LT_AGE
-  Host type:        ${host}
-  Install prefix:   ${prefix}
-  Compiler:         ${CC}
-  Warning flags:    ${WARN_CFLAGS}
-  Library types:    Shared=${enable_shared}, Static=${enable_static}
-  Libiconv:         $am_cv_func_iconv
-  Valgrind:         ${VALGRIND}
-  Version script:   $have_ld_version_script
-  TLD code:         $enable_tld
-  Build Java port:  $enable_java
-  Build C# port:    $enable_csharp
+  version:           ${VERSION} shared $LT_CURRENT:$LT_REVISION:$LT_AGE
+  Host type:         ${host}
+  Install prefix:    ${prefix}
+  Compiler:          ${CC}
+  Compiler flags:    ${CFLAGS}
+  Warning flags:     ${WARN_CFLAGS}
+  Library types:     Shared=${enable_shared}, Static=${enable_static}
+  Libiconv:          $am_cv_func_iconv
+  Valgrind:          ${VALGRIND}
+  Version script:    $have_ld_version_script
+  TLD code:          $enable_tld
+  Build Java port:   $enable_java
+  Build C# port:     $enable_csharp
+  Address Sanitizer: $enable_asan
 ])
