@@ -207,6 +207,7 @@ AC_CONFIG_FILES([
   libidn.pc
   po/Makefile.in
   src/Makefile
+  fuzz/Makefile
   tests/Makefile
 ])
 AC_OUTPUT
