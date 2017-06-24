@@ -20,7 +20,15 @@ SUBDIRS = gl lib/gl lib po src
 if ENABLE_DOC
 SUBDIRS += doc
 endif
-SUBDIRS += gltests lib/gltests fuzz tests examples java csharp
+SUBDIRS += gltests lib/gltests fuzz tests examples
+if JAVA
+SUBDIRS += java
+endif
+if CSHARP
+SUBDIRS += csharp
+endif
+
+
 
 EXTRA_DIST = cfg.mk maint.mk .clcopying
 EXTRA_DIST += COPYING.LESSERv2 COPYING.LESSERv3 COPYINGv2 COPYINGv3
