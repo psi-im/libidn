@@ -56,3 +56,20 @@ EXTRA_DIST += HACKING
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libidn.pc
+
+COVERAGE_CCOPTS ?= "-g --coverage"
+COVERAGE_OUT ?= doc/coverage
+
+fuzz-coverage:
+	$(MAKE) $(AM_MAKEFLAGS) clean
+	lcov --directory . --zerocounters
+	$(MAKE) $(AM_MAKEFLAGS) CFLAGS=$(COVERAGE_CCOPTS) CXXFLAGS=$(COVERAGE_CCOPTS)
+	$(MAKE) -C fuzz $(AM_MAKEFLAGS) CFLAGS=$(COVERAGE_CCOPTS) CXXFLAGS=$(COVERAGE_CCOPTS) check
+	mkdir -p $(COVERAGE_OUT)
+	lcov --directory . --output-file $(COVERAGE_OUT)/$(PACKAGE).info --capture
+	genhtml --output-directory $(COVERAGE_OUT) \
+                $(COVERAGE_OUT)/$(PACKAGE).info \
+                --highlight --frames --legend \
+                --title "$(PACKAGE_NAME)"
+	@echo
+	@echo "View fuzz coverage report with 'xdg-open $(COVERAGE_OUT)/index.html'"
