@@ -175,6 +175,12 @@ if test "$gl_gcc_warnings" = yes; then
   gl_WARN_ADD([-Wno-missing-field-initializers]) # Rely on missing field = 0.
 fi
 
+AC_ARG_ENABLE(doc,
+  AS_HELP_STRING([--disable-doc], [don't generate any documentation]),
+    enable_doc=$enableval, enable_doc=yes)
+AM_CONDITIONAL(ENABLE_DOC, test "$enable_doc" != "no")
+
+
 AC_CONFIG_FILES([
   Makefile
   contrib/doxygen/Doxyfile
@@ -224,6 +230,7 @@ AC_MSG_NOTICE([summary of build options:
   Libiconv:          $am_cv_func_iconv
   Valgrind:          ${VALGRIND}
   Version script:    $have_ld_version_script
+  Documentation:     $enable_doc
   TLD code:          $enable_tld
   Build Java port:   $enable_java
   Build C# port:     $enable_csharp

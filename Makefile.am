@@ -16,14 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = gl lib/gl lib po src doc gltests lib/gltests fuzz tests examples \
-	java csharp
+SUBDIRS = gl lib/gl lib po src
+if ENABLE_DOC
+SUBDIRS += doc
+endif
+SUBDIRS += gltests lib/gltests fuzz tests examples java csharp
 
 EXTRA_DIST = cfg.mk maint.mk .clcopying
 EXTRA_DIST += COPYING.LESSERv2 COPYING.LESSERv3 COPYINGv2 COPYINGv3
 
 ACLOCAL_AMFLAGS = -I m4 -I gl/m4 -I lib/gl/m4
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+DISTCHECK_CONFIGURE_FLAGS = --enable-doc --enable-gtk-doc
 
 EXTRA_DIST += FAQ libc/README libc/getaddrinfo-idn.txt libc/example.c	\
 	contrib/README contrib/idn-python/README			\
