@@ -50,7 +50,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	assert(asc != NULL);
 
 	if ((size & 3) == 0) {
-		uint32_t *data0 = malloc((size + 1) * 4);
+		uint32_t *data0 = (uint32_t *) malloc((size + 1) * 4);
 
 		idna_to_ascii_4i((uint32_t *)data, size / 4, asc, 0);
 		idna_to_ascii_4i((uint32_t *)data, size / 4, asc, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES);
