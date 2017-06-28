@@ -6,12 +6,14 @@ LDADD = ../lib/libidn.la
 
 IDN_TESTS = \
  libidn_toascii_fuzzer$(EXEEXT) \
- libidn_tounicode_fuzzer$(EXEEXT)
+ libidn_tounicode_fuzzer$(EXEEXT) \
+ libidn_stringprep_fuzzer$(EXEEXT)
 
 check_PROGRAMS = $(IDN_TESTS)
 
 libidn_toascii_fuzzer_SOURCES = libidn_toascii_fuzzer.c main.c fuzzer.h
 libidn_tounicode_fuzzer_SOURCES = libidn_tounicode_fuzzer.c main.c fuzzer.h
+libidn_stringprep_fuzzer_SOURCES = libidn_stringprep_fuzzer.c main.c fuzzer.h
 
 dist-hook:
 	find . -name '*.options' -exec cp -v '{}' $(distdir) ';'
