@@ -51,8 +51,6 @@ stringprep_find_character_in_table (uint32_t ucs4,
 				    const Stringprep_table_element * table,
                                     size_t table_size)
 {
-  ssize_t i;
-
   /* This is where typical uses of Libidn spends very close to all CPU
      time and causes most cache misses.  One could easily do a binary
      search instead.  Before rewriting this, I want hard evidence this
@@ -70,6 +68,8 @@ stringprep_find_character_in_table (uint32_t ucs4,
    * Almost a factor of 20 faster (but still pretty slow).
    * There are still ~2 million calls to bsearch() which make ~30% of CPU time used.
    * Most time is spent in _g_utf8_normalize_wc().
+
+  ssize_t i;
 
   for (i = 0; table[i].start || table[i].end; i++)
     if (ucs4 >= table[i].start &&
@@ -114,8 +114,10 @@ stringprep_apply_table_to_string (uint32_t * ucs4,
 {
   ssize_t pos;
   size_t i, maplen;
+  uint32_t *src = ucs4; /* points to unprocessed data */
+  size_t srclen = *ucs4len; /* length of unprocessed data */
 
-  while ((pos = stringprep_find_string_in_table (ucs4, *ucs4len,
+  while ((pos = stringprep_find_string_in_table (src, srclen,
 						 &i, table, table_size)) != -1)
     {
       for (maplen = STRINGPREP_MAX_MAP_CHARS;
@@ -125,10 +127,12 @@ stringprep_apply_table_to_string (uint32_t * ucs4,
       if (*ucs4len - 1 + maplen >= maxucs4len)
 	return STRINGPREP_TOO_SMALL_BUFFER;
 
-      memmove (&ucs4[pos + maplen], &ucs4[pos + 1],
-	       sizeof (uint32_t) * (*ucs4len - pos - 1));
-      memcpy (&ucs4[pos], table[i].map, sizeof (uint32_t) * maplen);
+      memmove (src + pos + maplen, src + pos + 1,
+	       sizeof (uint32_t) * (srclen - pos - 1));
+      memcpy (src + pos, table[i].map, sizeof (uint32_t) * maplen);
       *ucs4len = *ucs4len - 1 + maplen;
+      src += pos + maplen;
+      srclen -= pos + 1;
     }
 
   return STRINGPREP_OK;
