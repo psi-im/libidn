@@ -45,17 +45,17 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	domain[size] = 0;
 
 	if ((size & 3) == 0) {
-		uint32_t *out = (uint32_t *) malloc(size);
-		size_t outlen;
+		uint32_t *u32 = (uint32_t *) malloc(size);
+		size_t u32len;
 
-		assert(out != NULL);
+		assert(u32 != NULL);
 
-		outlen = size / 4;
-		idna_to_unicode_44i((uint32_t *)data, size / 4, out, &outlen, 0);
-		outlen = size / 4;
-		idna_to_unicode_44i((uint32_t *)data, size / 4, out, &outlen, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES);
+		u32len = size / 4;
+		idna_to_unicode_44i((uint32_t *)data, size / 4, u32, &u32len, 0);
+		u32len = size / 4;
+		idna_to_unicode_44i((uint32_t *)data, size / 4, u32, &u32len, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES);
 
-		free(out);
+		free(u32);
 
 		uint32_t *data0 = (uint32_t *) malloc(size + 4), *out0;
 		assert(data0 != NULL);
