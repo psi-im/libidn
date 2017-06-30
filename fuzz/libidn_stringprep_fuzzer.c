@@ -30,6 +30,8 @@
 #include <string.h> // memcpy
 
 #include "stringprep.h"
+#include "pr29.h"
+#include "tld.h"
 #include "idn-free.h"
 #include "fuzzer.h"
 
@@ -38,6 +40,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	char *wdata = (char *) malloc(size + 1);
 	char *label = (char *) malloc(size + 1);
 	char *out;
+	size_t errpos;
 
 	assert(wdata != NULL);
 	assert(label != NULL);
@@ -47,6 +50,18 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	label[size] = 0;
 
 	stringprep_check_version(label);
+	stringprep_strerror(0);
+	stringprep_strerror(-1);
+
+	if (stringprep_profile(label, &out, "Nodeprep", 0) == STRINGPREP_OK)
+		idn_free(out);
+
+	pr29_8z(label); /* internally calls stringprep_utf8_to_ucs4() */
+	if (tld_get_z(label, &out) == TLD_SUCCESS) /* internally calls tld_get_4() */
+		idn_free(out);
+	const Tld_table *tld = tld_default_table("fr", NULL);
+	tld_check_8z(label, &errpos, NULL);
+	tld_check_lz(label, &errpos, NULL);
 
 	memcpy(wdata, data, size);
 	wdata[size] = 0;
@@ -55,53 +70,28 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	wdata[size] = 0;
 	stringprep(wdata, size, STRINGPREP_NO_UNASSIGNED, stringprep_nameprep);
 
-/*	if ((size & 3) == 0) {
-		uint32_t *out = (uint32_t *) malloc(size);
-		size_t outlen;
+	if ((size & 3) == 0) {
+		uint32_t *u32 = (uint32_t *) malloc(size + 4);
 
-		assert(out != NULL);
+		assert(u32 != NULL);
 
-		outlen = size / 4;
-		idna_to_unicode_44i((uint32_t *)data, size / 4, out, &outlen, 0);
-		outlen = size / 4;
-		idna_to_unicode_44i((uint32_t *)data, size / 4, out, &outlen, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES);
+		memcpy(u32, data, size);
+		u32[size / 4] = 0;
+		stringprep_4zi(u32, size / 4, 0, stringprep_xmpp_nodeprep);
 
-		free(out);
+		memcpy(u32, data, size);
+		u32[size / 4] = 0;
+		if (tld_get_4z(u32, &out) == TLD_SUCCESS) /* internally calls tld_get_4() */
+			idn_free(out);
 
-		uint32_t *data0 = (uint32_t *) malloc(size + 4), *out0;
-		assert(data0 != NULL);
-		memcpy(data0, data, size);
-		data0[size / 4] = 0;
+		tld_check_4tz(u32, &errpos, tld);
+		tld_check_4z(u32, &errpos, NULL);
 
-		if (idna_to_unicode_4z4z(data0, &out0, 0) == IDNA_SUCCESS)
-			idn_free(out0);
-		if (idna_to_unicode_4z4z(data0, &out0, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES) == IDNA_SUCCESS)
-			idn_free(out0);
-
-		free(data0);
-
-		if (idna_to_unicode_8z4z(label, &out0, 0) == IDNA_SUCCESS)
-			idn_free(out0);
-		if (idna_to_unicode_8z4z(label, &out0, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES) == IDNA_SUCCESS)
-			idn_free(out0);
+		free(u32);
 	}
 
-	if (idna_to_unicode_8z8z(label, &out, 0) == IDNA_SUCCESS)
-		idn_free(out);
-	if (idna_to_unicode_8z8z(label, &out, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES) == IDNA_SUCCESS)
-		idn_free(out);
-	if (idna_to_unicode_8zlz(label, &out, 0) == IDNA_SUCCESS)
-		idn_free(out);
-	if (idna_to_unicode_8zlz(label, &out, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES) == IDNA_SUCCESS)
-		idn_free(out);
-	if (idna_to_unicode_lzlz(label, &out, 0) == IDNA_SUCCESS)
-		idn_free(out);
-	if (idna_to_unicode_lzlz(label, &out, IDNA_ALLOW_UNASSIGNED|IDNA_USE_STD3_ASCII_RULES) == IDNA_SUCCESS)
-		idn_free(out);
-*/
-
-	free(wdata);
 	free(label);
+	free(wdata);
 
 	return 0;
 }

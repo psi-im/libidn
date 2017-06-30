@@ -139,6 +139,9 @@ examples/example4
 examples/example4.o
 examples/example5
 examples/example5.o
+fuzz/.deps/
+fuzz/libidn_*_fuzzer
+fuzz/libidn_*_fuzzer.new/
 gl/.deps/
 gl/.libs/
 gl/Makefile
@@ -519,6 +522,7 @@ lib/profiles.o
 lib/punycode.lo
 lib/punycode.o
 lib/rfc3454.c
+lib/rfc3454.h
 lib/rfc3454.lo
 lib/rfc3454.o
 lib/strerror-idna.lo
