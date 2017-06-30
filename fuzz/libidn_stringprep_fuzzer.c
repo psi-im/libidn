@@ -39,11 +39,14 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 {
 	char *wdata = (char *) malloc(size + 1);
 	char *label = (char *) malloc(size + 1);
+	char *utf8_seq = (char *) malloc(6);
 	char *out;
+        uint32_t cp;
 	size_t errpos;
 
 	assert(wdata != NULL);
 	assert(label != NULL);
+	assert(utf8_seq != NULL);
 
 	// 0 terminate
 	memcpy(label, data, size);
@@ -57,11 +60,18 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 		idn_free(out);
 
 	pr29_8z(label); /* internally calls stringprep_utf8_to_ucs4() */
+
 	if (tld_get_z(label, &out) == TLD_SUCCESS) /* internally calls tld_get_4() */
 		idn_free(out);
 	const Tld_table *tld = tld_default_table("fr", NULL);
 	tld_check_8z(label, &errpos, NULL);
 	tld_check_lz(label, &errpos, NULL);
+
+        out = stringprep_utf8_nfkc_normalize((char *)data, size);
+        idn_free(out);
+
+        cp = stringprep_utf8_to_unichar(label);
+        stringprep_unichar_to_utf8(cp, utf8_seq);
 
 	memcpy(wdata, data, size);
 	wdata[size] = 0;
@@ -90,6 +100,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 		free(u32);
 	}
 
+	free(utf8_seq);
 	free(label);
 	free(wdata);
 
