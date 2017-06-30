@@ -239,38 +239,16 @@ static const gchar *const g_utf8_skip = utf8_skip_data;
  * Return value: the length of the string in characters
  **/
 static glong
-g_utf8_strlen (const gchar * p, gssize max)
+g_utf8_strlen (const gchar * p)
 {
   glong len = 0;
-  const gchar *start = p;
-  g_return_val_if_fail (p != NULL || max == 0, 0);
 
-  if (max < 0)
-    {
-      while (*p)
-	{
-	  p = g_utf8_next_char (p);
-	  ++len;
-	}
-    }
-  else
-    {
-      if (max == 0 || !*p)
-	return 0;
+  g_return_val_if_fail (p != NULL, 0);
 
+  while (*p)
+    {
       p = g_utf8_next_char (p);
-
-      while (p - start < max && *p)
-	{
-	  ++len;
-	  p = g_utf8_next_char (p);
-	}
-
-      /* only do the last len increment if we got a complete
-       * char (don't count partial chars)
-       */
-      if (p - start <= max)
-	++len;
+      ++len;
     }
 
   return len;
@@ -811,7 +789,7 @@ _g_utf8_normalize_wc (const gchar * str, gssize max_len, GNormalizeMode mode)
 	  decomp = find_decomposition (wc, do_compat);
 
 	  if (decomp)
-	    n_wc += g_utf8_strlen (decomp, -1);
+	    n_wc += g_utf8_strlen (decomp);
 	  else
 	    n_wc++;
 	}
