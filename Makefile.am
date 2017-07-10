@@ -67,6 +67,7 @@ fuzz-coverage:
 	$(MAKE) -C fuzz $(AM_MAKEFLAGS) CFLAGS=$(COVERAGE_CCOPTS) CXXFLAGS=$(COVERAGE_CCOPTS) check
 	mkdir -p $(COVERAGE_OUT)
 	lcov --directory . --output-file $(COVERAGE_OUT)/$(PACKAGE).info --capture
+	lcov --remove $(COVERAGE_OUT)/$(PACKAGE).info '*/lib/gl/*' -o $(COVERAGE_OUT)/$(PACKAGE).info
 	genhtml --output-directory $(COVERAGE_OUT) \
                 $(COVERAGE_OUT)/$(PACKAGE).info \
                 --highlight --frames --legend \
