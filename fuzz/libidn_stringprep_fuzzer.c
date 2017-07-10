@@ -53,8 +53,6 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	label[size] = 0;
 
 	stringprep_check_version(label);
-	stringprep_strerror(0);
-	stringprep_strerror(-1);
 
 	if (stringprep_profile(label, &out, "Nodeprep", 0) == STRINGPREP_OK)
 		idn_free(out);

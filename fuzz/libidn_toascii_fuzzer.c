@@ -40,8 +40,6 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 
 	assert(domain != NULL);
 
-	idna_strerror(0);
-
 	if ((size & 3) == 0) {
 		uint32_t *data0 = (uint32_t *) malloc(size + 4);
 		char *asc = (char *) malloc(64);
