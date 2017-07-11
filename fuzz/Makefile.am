@@ -32,7 +32,7 @@ oss-fuzz:
 	if test "$$OUT" != ""; then \
 	for ccfile in *_fuzzer.c; do \
 	fuzzer=$$(basename $$ccfile .c); \
-	$$CC $$CFLAGS -I$(top_srcdir)/lib -I$(top_srcdir) \
+	$$CXX $$CXXFLAGS -I$(top_srcdir)/lib -I$(top_srcdir) \
 	"$${fuzzer}.c" -o "$${fuzzer}" \
 	../lib/.libs/libidn.a $${LIB_FUZZING_ENGINE} -Wl,-Bstatic \
 	-lunistring \
