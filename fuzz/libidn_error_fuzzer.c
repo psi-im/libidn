@@ -41,7 +41,7 @@
 #define countof(a) (sizeof(a)/sizeof(*(a)))
 
 static Idna_rc _idna_errors[] = {
-	-1, // catch default case
+	(Idna_rc) -1, // catch default case
 	IDNA_SUCCESS,
 	IDNA_STRINGPREP_ERROR,
 	IDNA_PUNYCODE_ERROR,
@@ -58,14 +58,14 @@ static Idna_rc _idna_errors[] = {
 };
 
 static Pr29_rc _pr29_errors[] = {
-	-1, // catch default case
+	(Pr29_rc) -1, // catch default case
 	PR29_SUCCESS,
 	PR29_PROBLEM,
 	PR29_STRINGPREP_ERROR
 };
 
 static Punycode_status _punycode_errors[] = {
-	-1, // catch default case
+	(Punycode_status) -1, // catch default case
 	PUNYCODE_SUCCESS,
 	PUNYCODE_BAD_INPUT,
 	PUNYCODE_BIG_OUTPUT,
@@ -73,7 +73,7 @@ static Punycode_status _punycode_errors[] = {
 };
 
 static Stringprep_rc _stringprep_errors[] = {
-	-1, // catch default case
+	(Stringprep_rc) -1, // catch default case
 	STRINGPREP_OK,
 	STRINGPREP_CONTAINS_UNASSIGNED,
 	STRINGPREP_CONTAINS_PROHIBITED,
@@ -90,7 +90,7 @@ static Stringprep_rc _stringprep_errors[] = {
 };
 
 static Tld_rc _tld_errors[] = {
-	-1, // catch default case
+	(Tld_rc) -1, // catch default case
 	TLD_SUCCESS,
 	TLD_INVALID,
 	TLD_NODATA,

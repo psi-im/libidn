@@ -54,7 +54,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 
 	stringprep_check_version(label);
 
-	if (stringprep_profile(label, &out, "Nodeprep", 0) == STRINGPREP_OK)
+	if (stringprep_profile(label, &out, "Nodeprep", (Stringprep_profile_flags) 0) == STRINGPREP_OK)
 		idn_free(out);
 
 	pr29_8z(label); /* internally calls stringprep_utf8_to_ucs4() */
@@ -73,7 +73,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 
 	memcpy(wdata, data, size);
 	wdata[size] = 0;
-	stringprep(wdata, size, 0, stringprep_nameprep);
+	stringprep(wdata, size, (Stringprep_profile_flags) 0, stringprep_nameprep);
 	memcpy(wdata, data, size);
 	wdata[size] = 0;
 	stringprep(wdata, size, STRINGPREP_NO_UNASSIGNED, stringprep_nameprep);
@@ -85,7 +85,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 
 		memcpy(u32, data, size);
 		u32[size / 4] = 0;
-		stringprep_4zi(u32, size / 4, 0, stringprep_xmpp_nodeprep);
+		stringprep_4zi(u32, size / 4, (Stringprep_profile_flags) 0, stringprep_xmpp_nodeprep);
 
 		memcpy(u32, data, size);
 		u32[size / 4] = 0;

@@ -35,7 +35,6 @@ oss-fuzz:
 	$$CXX $$CXXFLAGS -I$(top_srcdir)/lib -I$(top_srcdir) \
 	"$${fuzzer}.c" -o "$${fuzzer}" \
 	../lib/.libs/libidn.a $${LIB_FUZZING_ENGINE} -Wl,-Bstatic \
-	-lunistring \
 	-Wl,-Bdynamic; \
 	done; \
 	fi
