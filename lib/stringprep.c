@@ -59,7 +59,7 @@ stringprep_find_character_in_table (uint32_t ucs4,
      mostly interested in having someone give real-world benchmark on
      the impact of libidn.)
    *
-   * Answer (Tim Rühsen rockdaboot@gmx.de):
+   * Answer (Tim RÃ¼hsen rockdaboot@gmx.de):
    * Testing the fuzz corpora just once via make check takes ~54 billion CPU cycles.
    * That is almost 20s on my Intel i3 3.1GHz !!!
    * That even makes fuzzing almost useless, eating up CPU cycles for nothing.
@@ -404,7 +404,7 @@ stringprep (char *in,
   int rc;
   char *utf8 = NULL;
   uint32_t *ucs4 = NULL;
-  size_t ucs4len, maxucs4len, adducs4len = 50;
+  size_t ucs4len, maxucs4len, adducs4len = strlen (in) / 10 + 1;
 
   do
     {
@@ -424,7 +424,7 @@ stringprep (char *in,
       ucs4 = newp;
 
       rc = stringprep_4i (ucs4, &ucs4len, maxucs4len, flags, profile);
-      adducs4len += 50;
+      adducs4len *= 2;
     }
   while (rc == STRINGPREP_TOO_SMALL_BUFFER);
   if (rc != STRINGPREP_OK)
@@ -482,7 +482,7 @@ stringprep_profile (const char *in,
 {
   const Stringprep_profiles *p;
   char *str = NULL;
-  size_t len = strlen (in) + 1;
+  size_t len = strlen (in) + 1, addlen = len / 10 + 1;
   int rc;
 
   for (p = &stringprep_profiles[0]; p->name; p++)
@@ -502,7 +502,8 @@ stringprep_profile (const char *in,
       strcpy (str, in);
 
       rc = stringprep (str, len, flags, p->tables);
-      len += 50;
+      len += addlen;
+      addlen *= 2;
     }
   while (rc == STRINGPREP_TOO_SMALL_BUFFER);
 
