@@ -139,6 +139,7 @@ examples/example4
 examples/example4.o
 examples/example5
 examples/example5.o
+fuzz/*.o
 fuzz/.deps/
 fuzz/libidn_*_fuzzer
 fuzz/libidn_*_fuzzer.new/
