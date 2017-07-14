@@ -37,13 +37,19 @@
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 {
-	char *wdata = (char *) malloc(size + 1);
-	char *label = (char *) malloc(size + 1);
-	char *utf8_seq = (char *) malloc(6);
+	char *wdata;
+	char *label;
+	char *utf8_seq;
 	char *out;
         uint32_t cp;
 	size_t errpos;
 
+	if (size > 2048)
+		return 0;
+
+	wdata = (char *) malloc(size + 1);
+	label = (char *) malloc(size + 1);
+	utf8_seq = (char *) malloc(6);
 	assert(wdata != NULL);
 	assert(label != NULL);
 	assert(utf8_seq != NULL);
