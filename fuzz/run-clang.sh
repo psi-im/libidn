@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 #
 # Copyright(c) 2017 Tim Ruehsen
 #
@@ -21,6 +21,13 @@
 # DEALINGS IN THE SOFTWARE.
 #
 # This file is part of libidn.
+
+trap ctrl_c INT
+
+ctrl_c() {
+  ./${fuzzer} -merge=1 ${fuzzer}.in ${fuzzer}.new
+  rm -rf ${fuzzer}.new
+}
 
 if test -z "$1"; then
 	echo "Usage: $0 <fuzzer target>"
