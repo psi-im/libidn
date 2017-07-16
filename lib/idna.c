@@ -285,7 +285,7 @@ idna_to_unicode_internal (char *utf8in,
   int rc;
   char tmpout[64];
   size_t utf8len = strlen (utf8in) + 1;
-  size_t addlen = 0;
+  size_t addlen = 0, addinc = utf8len / 10 + 1;
 
   /*
    * ToUnicode consists of the following steps:
@@ -325,7 +325,8 @@ idna_to_unicode_internal (char *utf8in,
 	rc = stringprep_nameprep (utf8in, utf8len + addlen);
       else
 	rc = stringprep_nameprep_no_unassigned (utf8in, utf8len + addlen);
-      addlen += 1;
+      addlen += addinc;
+      addinc *= 2;
     }
   while (rc == STRINGPREP_TOO_SMALL_BUFFER);
 
