@@ -211,7 +211,7 @@ static const struct idna idna[] = {
     'x', 'n', '-', '-', 'f', 'o', 0x3067},
    IDNA_ACE_PREFIX "too long too long too long too long too long too "
    "long too long too long too long too long ", 0,
-   IDNA_CONTAINS_ACE_PREFIX, IDNA_PUNYCODE_ERROR}
+   IDNA_CONTAINS_ACE_PREFIX, IDNA_INVALID_LENGTH}
 };
 
 void
