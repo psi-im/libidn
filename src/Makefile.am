@@ -35,7 +35,8 @@ libidn_cmd_la_SOURCES =  idn.ggo idn_cmd.c idn_cmd.h
 libidn_cmd_la_LIBADD = ../gl/libgnu.la
 libidn_cmd_la_CFLAGS =
 
-idn_cmd.c idn_cmd.h: idn.ggo Makefile.am
+# pattern rule (%) needed for parallel make (-j)
+idn_cmd%c idn_cmd%h: idn.ggo Makefile.am
 	gengetopt --unamed-opts --no-handle-version --no-handle-help \
 		--set-package="idn" \
 		--input $^ --file-name idn_cmd
