@@ -677,22 +677,26 @@ find_decomposition (gunichar ch, gboolean compat)
 static gboolean
 combine_hangul (gunichar a, gunichar b, gunichar * result)
 {
-  gint LIndex = a - LBase;
-  gint SIndex = a - SBase;
-
-  gint VIndex = b - VBase;
-  gint TIndex = b - TBase;
-
-  if (0 <= LIndex && LIndex < LCount && 0 <= VIndex && VIndex < VCount)
+  if (a >= LBase && a < LCount + LBase && b >= VBase && b < VCount + VBase)
     {
+      gint LIndex = a - LBase;
+      gint VIndex = b - VBase;
+
       *result = SBase + (LIndex * VCount + VIndex) * TCount;
       return TRUE;
     }
-  else if (0 <= SIndex && SIndex < SCount && (SIndex % TCount) == 0
-	   && 0 < TIndex && TIndex < TCount)
+
+  if (a >= SBase && a < SCount + SBase && b > TBase && b < TCount + TBase)
     {
-      *result = a + TIndex;
-      return TRUE;
+      gint SIndex = a - SBase;
+
+		if ((SIndex % TCount) == 0)
+        {
+          gint TIndex = b - TBase;
+
+          *result = a + TIndex;
+          return TRUE;
+        }
     }
 
   return FALSE;
