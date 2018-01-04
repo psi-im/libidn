@@ -86,7 +86,13 @@ AC_MSG_CHECKING([if TLD API for specific TLD rules should be built])
 AC_MSG_RESULT($enable_tld)
 
 # Check for gtk-doc.
-GTK_DOC_CHECK(1.1)
+#
+m4_ifdef([GTK_DOC_CHECK], [
+GTK_DOC_CHECK([1.1], [--flavour no-tmpl])
+],[
+AM_CONDITIONAL([ENABLE_GTK_DOC], false)
+])
+
 
 # Check for java
 AC_ARG_ENABLE(java, AC_HELP_STRING([--enable-java], [enable Java API]),,
