@@ -47,9 +47,7 @@ autoreconf: doc/Makefile.gdoc
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
 	touch ChangeLog
-	mv build-aux/config.rpath build-aux/config.rpath-
-	test -f ./configure || autoreconf --install
-	mv build-aux/config.rpath- build-aux/config.rpath
+	autoreconf --install --force
 
 update-po: refresh-po
 	for f in `ls po/*.po | grep -v quot.po`; do \
