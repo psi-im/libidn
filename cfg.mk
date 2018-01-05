@@ -47,6 +47,7 @@ autoreconf: doc/Makefile.gdoc
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
 	touch ChangeLog
+	autopoint
 	autoreconf --install --force
 
 update-po: refresh-po
