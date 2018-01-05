@@ -13,6 +13,7 @@ autom4te.cache/
 build-aux/ar-lib
 build-aux/compile
 build-aux/config.guess
+build-aux/config.rpath
 build-aux/config.sub
 build-aux/depcomp
 build-aux/install-sh
