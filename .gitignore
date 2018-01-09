@@ -337,6 +337,7 @@ gltests/time.h
 gltests/version-etc-fsf.o
 gltests/warn-on-use.h
 gltests/wchar.h
+gtk-doc.make
 java/libidn-*.jar
 java/src/main/java/gnu/inet/encoding/CombiningClass.class
 java/src/main/java/gnu/inet/encoding/Composition.class
@@ -558,6 +559,7 @@ m4/fcntl-o.m4
 m4/gettext.m4
 m4/glibc2.m4
 m4/glibc21.m4
+m4/gtk-doc.m4
 m4/iconv.m4
 m4/intdiv0.m4
 m4/intl.m4

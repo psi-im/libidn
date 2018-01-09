@@ -48,7 +48,7 @@ autoreconf: doc/Makefile.gdoc
 	done
 	touch ChangeLog
 	rm -f gtk-doc.make
-	gtkdocize2 2>/dev/null || printf "EXTRA_DIST =\nCLEANFILES =\n" >gtk-doc.make
+	gtkdocize 2>/dev/null || printf "EXTRA_DIST =\nCLEANFILES =\n" >gtk-doc.make
 	autopoint
 	autoreconf --install --force
 
