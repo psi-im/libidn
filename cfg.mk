@@ -47,6 +47,10 @@ autoreconf: doc/Makefile.gdoc
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
 	touch ChangeLog
+	# rm because gtk-doc.make might be a link to a protected file
+	rm -f gtk-doc.make 2>/dev/null
+	echo "EXTRA_DIST =" >gtk-doc.make
+	echo "CLEANFILES =" >>gtk-doc.make
 	autopoint
 	autoreconf --install --force
 
