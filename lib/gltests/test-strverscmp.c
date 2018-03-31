@@ -1,5 +1,5 @@
 /* Test of strverscmp() function.
-   Copyright (C) 2008-2016 Free Software Foundation, Inc.
+   Copyright (C) 2008-2018 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, see <https://www.gnu.org/licenses/>.  */
 
 /* Written by Eric Blake <ebb9@byu.net>, 2008.  */
 
@@ -41,5 +41,19 @@ main (void)
   ASSERT (strverscmp ("09", "0") < 0);
   ASSERT (strverscmp ("9", "10") < 0);
   ASSERT (strverscmp ("0a", "0") > 0);
+
+  /* From glibc bug 9913.  */
+  {
+    static char const a[] = "B0075022800016.gbp.corp.com";
+    static char const b[] = "B007502280067.gbp.corp.com";
+    static char const c[] = "B007502357019.GBP.CORP.COM";
+    ASSERT (strverscmp (a, b) < 0);
+    ASSERT (strverscmp (b, c) < 0);
+    ASSERT (strverscmp (a, c) < 0);
+    ASSERT (strverscmp (b, a) > 0);
+    ASSERT (strverscmp (c, b) > 0);
+    ASSERT (strverscmp (c, a) > 0);
+  }
+
   return 0;
 }

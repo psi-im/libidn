@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001-2004, 2006, 2009-2016 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006, 2009-2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -13,7 +13,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 #ifndef _PROGNAME_H
 #define _PROGNAME_H
@@ -36,7 +36,7 @@ extern const char *program_name;
    modified after this call.  */
 extern void set_program_name (const char *argv0);
 
-#if defined(ENABLE_RELOCATABLE) && ENABLE_RELOCATABLE
+#if ENABLE_RELOCATABLE
 
 /* Set program_name, based on argv[0], and original installation prefix and
    directory, for relocatability.  */

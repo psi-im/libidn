@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2016 Free Software Foundation, Inc.
+# Copyright (C) 2002-2018 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this file.  If not, see <http://www.gnu.org/licenses/>.
+# along with this file.  If not, see <https://www.gnu.org/licenses/>.
 #
 # As a special exception to the GNU General Public License,
 # this file may be distributed as part of a program that
@@ -56,9 +56,11 @@ AC_DEFUN([lgl_EARLY],
   # Code from module environ-tests:
   # Code from module extensions:
   # Code from module extern-inline:
+  # Code from module flexmember:
   # Code from module gettext-h:
   # Code from module gperf:
   # Code from module havelib:
+  # Code from module host-cpu-c-abi:
   # Code from module iconv:
   # Code from module iconv-h:
   # Code from module iconv-tests:
@@ -70,11 +72,15 @@ AC_DEFUN([lgl_EARLY],
   # Code from module inttypes:
   # Code from module inttypes-incomplete:
   # Code from module inttypes-tests:
+  # Code from module isblank:
+  # Code from module isblank-tests:
   # Code from module langinfo:
   # Code from module langinfo-tests:
   # Code from module lib-msvc-compat:
   # Code from module lib-symbol-versions:
   # Code from module lib-symbol-visibility:
+  # Code from module limits-h:
+  # Code from module limits-h-tests:
   # Code from module locale:
   # Code from module locale-tests:
   # Code from module localename:
@@ -84,12 +90,23 @@ AC_DEFUN([lgl_EARLY],
   # Code from module malloc-posix:
   # Code from module malloca:
   # Code from module malloca-tests:
+  # Code from module msvc-inval:
   # Code from module multiarch:
+  # Code from module pthread_sigmask:
+  # Code from module pthread_sigmask-tests:
   # Code from module putenv:
+  # Code from module raise:
+  # Code from module raise-tests:
   # Code from module setenv:
   # Code from module setenv-tests:
   # Code from module setlocale:
   # Code from module setlocale-tests:
+  # Code from module signal-h:
+  # Code from module signal-h-tests:
+  # Code from module sigprocmask:
+  # Code from module sigprocmask-tests:
+  # Code from module sleep:
+  # Code from module sleep-tests:
   # Code from module snippet/_Noreturn:
   # Code from module snippet/arg-nonnull:
   # Code from module snippet/c++defs:
@@ -119,6 +136,8 @@ AC_DEFUN([lgl_EARLY],
   # Code from module thread-tests:
   # Code from module threadlib:
   gl_THREADLIB_EARLY
+  # Code from module time:
+  # Code from module time-tests:
   # Code from module unistd:
   # Code from module unistd-tests:
   # Code from module unistr/base:
@@ -131,9 +150,12 @@ AC_DEFUN([lgl_EARLY],
   # Code from module unitypes:
   # Code from module unsetenv:
   # Code from module unsetenv-tests:
+  # Code from module usleep:
+  # Code from module usleep-tests:
   # Code from module verify:
   # Code from module verify-tests:
   # Code from module wchar:
+  # Code from module xalloc-oversized:
   # Code from module yield:
 ])
 
@@ -154,6 +176,7 @@ AC_DEFUN([lgl_INIT],
   AC_REQUIRE([gl_EXTERN_INLINE])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
+  AC_REQUIRE([gl_HOST_CPU_C_ABI])
   AM_ICONV
   m4_ifdef([gl_ICONV_MODULE_INDICATOR],
     [gl_ICONV_MODULE_INDICATOR([iconv])])
@@ -170,6 +193,7 @@ AC_DEFUN([lgl_INIT],
   gl_LD_OUTPUT_DEF
   gl_LD_VERSION_SCRIPT
   gl_VISIBILITY
+  gl_LIMITS_H
   gl_MULTIARCH
   gt_TYPE_SSIZE_T
   AM_STDBOOL_H
@@ -247,8 +271,14 @@ changequote([, ])dnl
   gl_CTYPE_H
   gl_ENVIRON
   gl_UNISTD_MODULE_INDICATOR([environ])
+  AC_C_FLEXIBLE_ARRAY_MEMBER
   gl_INTTYPES_H
   gl_INTTYPES_INCOMPLETE
+  gl_FUNC_ISBLANK
+  if test $HAVE_ISBLANK = 0; then
+    AC_LIBOBJ([isblank])
+  fi
+  gl_CTYPE_MODULE_INDICATOR([isblank])
   gl_LANGINFO_H
   gl_LOCALE_H
   AC_CHECK_FUNCS_ONCE([newlocale])
@@ -256,18 +286,35 @@ changequote([, ])dnl
   AC_CHECK_FUNCS_ONCE([newlocale])
   gl_LOCK
   gl_MODULE_INDICATOR([lock])
+  AC_CHECK_HEADERS_ONCE([semaphore.h])
   gl_FUNC_MALLOC_POSIX
   if test $REPLACE_MALLOC = 1; then
     AC_LIBOBJ([malloc])
   fi
   gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_MALLOCA
+  AC_REQUIRE([gl_MSVC_INVAL])
+  if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
+    AC_LIBOBJ([msvc-inval])
+  fi
+  gl_FUNC_PTHREAD_SIGMASK
+  if test $HAVE_PTHREAD_SIGMASK = 0 || test $REPLACE_PTHREAD_SIGMASK = 1; then
+    AC_LIBOBJ([pthread_sigmask])
+    gl_PREREQ_PTHREAD_SIGMASK
+  fi
+  gl_SIGNAL_MODULE_INDICATOR([pthread_sigmask])
   gl_FUNC_PUTENV
   if test $REPLACE_PUTENV = 1; then
     AC_LIBOBJ([putenv])
     gl_PREREQ_PUTENV
   fi
   gl_STDLIB_MODULE_INDICATOR([putenv])
+  gl_FUNC_RAISE
+  if test $HAVE_RAISE = 0 || test $REPLACE_RAISE = 1; then
+    AC_LIBOBJ([raise])
+    gl_PREREQ_RAISE
+  fi
+  gl_SIGNAL_MODULE_INDICATOR([raise])
   gl_FUNC_SETENV
   if test $HAVE_SETENV = 0 || test $REPLACE_SETENV = 1; then
     AC_LIBOBJ([setenv])
@@ -283,12 +330,26 @@ changequote([, ])dnl
   gt_LOCALE_FR_UTF8
   gt_LOCALE_JA
   gt_LOCALE_ZH_CN
+  gl_SIGNAL_H
+  gl_SIGNALBLOCKING
+  if test $HAVE_POSIX_SIGNALBLOCKING = 0; then
+    AC_LIBOBJ([sigprocmask])
+    gl_PREREQ_SIGPROCMASK
+  fi
+  gl_SIGNAL_MODULE_INDICATOR([sigprocmask])
+  gl_FUNC_SLEEP
+  if test $HAVE_SLEEP = 0 || test $REPLACE_SLEEP = 1; then
+    AC_LIBOBJ([sleep])
+  fi
+  gl_UNISTD_MODULE_INDICATOR([sleep])
+  AC_CHECK_DECLS_ONCE([alarm])
   gl_STDALIGN_H
   AC_REQUIRE([gt_TYPE_WCHAR_T])
   AC_REQUIRE([gt_TYPE_WINT_T])
   gl_STDLIB_H
   gl_THREAD
   gl_THREADLIB
+  gl_HEADER_TIME_H
   gl_UNISTD_H
   gl_FUNC_UNSETENV
   if test $HAVE_UNSETENV = 0 || test $REPLACE_UNSETENV = 1; then
@@ -296,6 +357,11 @@ changequote([, ])dnl
     gl_PREREQ_UNSETENV
   fi
   gl_STDLIB_MODULE_INDICATOR([unsetenv])
+  gl_FUNC_USLEEP
+  if test $HAVE_USLEEP = 0 || test $REPLACE_USLEEP = 1; then
+    AC_LIBOBJ([usleep])
+  fi
+  gl_UNISTD_MODULE_INDICATOR([usleep])
   gl_WCHAR_H
   gl_YIELD
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
@@ -391,11 +457,8 @@ AC_DEFUN([lgltests_LIBSOURCES], [
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([lgl_FILE_LIST], [
   build-aux/config.rpath
-  build-aux/snippet/_Noreturn.h
-  build-aux/snippet/arg-nonnull.h
-  build-aux/snippet/c++defs.h
-  build-aux/snippet/unused-parameter.h
-  build-aux/snippet/warn-on-use.h
+  lib/arg-nonnull.h
+  lib/c++defs.h
   lib/c-ctype.c
   lib/c-ctype.h
   lib/c-strcase.h
@@ -411,6 +474,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/iconv_open-osf.gperf
   lib/iconv_open-solaris.gperf
   lib/iconv_open.c
+  lib/limits.in.h
   lib/stdbool.in.h
   lib/stddef.in.h
   lib/stdint.in.h
@@ -425,16 +489,21 @@ AC_DEFUN([lgl_FILE_LIST], [
   lib/unistr/u8-uctomb-aux.c
   lib/unistr/u8-uctomb.c
   lib/unitypes.in.h
+  lib/unused-parameter.h
+  lib/warn-on-use.h
   m4/00gnulib.m4
   m4/absolute-header.m4
   m4/alloca.m4
+  m4/asm-underscore.m4
   m4/codeset.m4
   m4/ctype.m4
   m4/eealloc.m4
   m4/environ.m4
   m4/extensions.m4
   m4/extern-inline.m4
+  m4/flexmember.m4
   m4/gnulib-common.m4
+  m4/host-cpu-c-abi.m4
   m4/iconv.m4
   m4/iconv_h.m4
   m4/iconv_open.m4
@@ -443,6 +512,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/intlmacosx.m4
   m4/inttypes-pri.m4
   m4/inttypes.m4
+  m4/isblank.m4
   m4/langinfo_h.m4
   m4/lcmessage.m4
   m4/ld-output-def.m4
@@ -451,6 +521,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/lib-link.m4
   m4/lib-prefix.m4
   m4/libunistring-base.m4
+  m4/limits-h.m4
   m4/locale-fr.m4
   m4/locale-ja.m4
   m4/locale-tr.m4
@@ -461,11 +532,18 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/longlong.m4
   m4/malloc.m4
   m4/malloca.m4
+  m4/msvc-inval.m4
   m4/multiarch.m4
   m4/off_t.m4
+  m4/pthread_rwlock_rdlock.m4
+  m4/pthread_sigmask.m4
   m4/putenv.m4
+  m4/raise.m4
   m4/setenv.m4
   m4/setlocale.m4
+  m4/signal_h.m4
+  m4/signalblocking.m4
+  m4/sleep.m4
   m4/ssize_t.m4
   m4/stdalign.m4
   m4/stdbool.m4
@@ -477,7 +555,9 @@ AC_DEFUN([lgl_FILE_LIST], [
   m4/sys_types_h.m4
   m4/thread.m4
   m4/threadlib.m4
+  m4/time_h.m4
   m4/unistd_h.m4
+  m4/usleep.m4
   m4/visibility.m4
   m4/warn-on-use.m4
   m4/wchar_h.m4
@@ -498,16 +578,25 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests/test-init.sh
   tests/test-intprops.c
   tests/test-inttypes.c
+  tests/test-isblank.c
   tests/test-langinfo.c
+  tests/test-limits-h.c
   tests/test-locale.c
   tests/test-localename.c
   tests/test-lock.c
   tests/test-malloca.c
+  tests/test-pthread_sigmask1.c
+  tests/test-pthread_sigmask2.c
+  tests/test-raise.c
+  tests/test-rwlock1.c
   tests/test-setenv.c
   tests/test-setlocale1.c
   tests/test-setlocale1.sh
   tests/test-setlocale2.c
   tests/test-setlocale2.sh
+  tests/test-signal-h.c
+  tests/test-sigprocmask.c
+  tests/test-sleep.c
   tests/test-stdalign.c
   tests/test-stdbool.c
   tests/test-stddef.c
@@ -519,15 +608,22 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests/test-sys_wait.h
   tests/test-thread_create.c
   tests/test-thread_self.c
+  tests/test-time.c
   tests/test-unistd.c
   tests/test-unsetenv.c
+  tests/test-usleep.c
+  tests/test-verify-try.c
   tests/test-verify.c
   tests/test-verify.sh
   tests/unistr/test-u8-check.c
   tests/unistr/test-u8-mbtoucr.c
   tests/unistr/test-u8-uctomb.c
+  tests=lib/_Noreturn.h
   tests=lib/alloca.in.h
+  tests=lib/arg-nonnull.h
+  tests=lib/c++defs.h
   tests=lib/ctype.in.h
+  tests=lib/flexmember.h
   tests=lib/glthread/lock.c
   tests=lib/glthread/lock.h
   tests=lib/glthread/thread.c
@@ -536,6 +632,7 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests=lib/glthread/yield.h
   tests=lib/intprops.h
   tests=lib/inttypes.in.h
+  tests=lib/isblank.c
   tests=lib/langinfo.in.h
   tests=lib/locale.in.h
   tests=lib/localename.c
@@ -543,15 +640,26 @@ AC_DEFUN([lgl_FILE_LIST], [
   tests=lib/malloc.c
   tests=lib/malloca.c
   tests=lib/malloca.h
-  tests=lib/malloca.valgrind
+  tests=lib/msvc-inval.c
+  tests=lib/msvc-inval.h
+  tests=lib/pthread_sigmask.c
   tests=lib/putenv.c
+  tests=lib/raise.c
   tests=lib/setenv.c
   tests=lib/setlocale.c
+  tests=lib/signal.in.h
+  tests=lib/sigprocmask.c
+  tests=lib/sleep.c
   tests=lib/stdalign.in.h
   tests=lib/stdlib.in.h
+  tests=lib/time.in.h
   tests=lib/unistd.c
   tests=lib/unistd.in.h
   tests=lib/unsetenv.c
+  tests=lib/unused-parameter.h
+  tests=lib/usleep.c
   tests=lib/verify.h
+  tests=lib/warn-on-use.h
   tests=lib/wchar.in.h
+  tests=lib/xalloc-oversized.h
 ])

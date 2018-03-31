@@ -1,5 +1,5 @@
 /* Creating and controlling threads.
-   Copyright (C) 2005-2016 Free Software Foundation, Inc.
+   Copyright (C) 2005-2018 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, see <https://www.gnu.org/licenses/>.  */
 
 /* Written by Bruno Haible <bruno@clisp.org>, 2005.
    Based on GCC's gthr-posix.h, gthr-posix95.h, gthr-solaris.h,
@@ -54,7 +54,7 @@
        gl_thread_exit (return_value);
        extern _Noreturn void gl_thread_exit (void *return_value);
 
-   Requesting custom code to be executed at fork() time(not supported on all
+   Requesting custom code to be executed at fork() time (not supported on all
    platforms):
        gl_thread_atfork (prepare_func, parent_func, child_func);
    Or with control of error handling:
@@ -64,7 +64,7 @@
                                    void (*child_func) (void));
    Note that even on platforms where this is supported, use of fork() and
    threads together is problematic, see
-     <http://lists.gnu.org/archive/html/bug-gnulib/2008-08/msg00062.html>
+     <https://lists.gnu.org/r/bug-gnulib/2008-08/msg00062.html>
  */
 
 
@@ -128,7 +128,9 @@ extern int glthread_in_use (void);
   /* Without this, clang complains that pthread_sigmask is never declared.  */
 #   include <signal.h>
 #  endif
-#  pragma weak pthread_sigmask
+#  ifndef pthread_sigmask /* Do not declare rpl_pthread_sigmask weak.  */
+#   pragma weak pthread_sigmask
+#  endif
 
 #  pragma weak pthread_join
 #  ifndef pthread_self
@@ -172,6 +174,15 @@ typedef pthread_t gl_thread_t;
 #  define gl_thread_self_pointer() \
      (pthread_in_use () ? pthread_self ().p : NULL)
 extern const gl_thread_t gl_null_thread;
+# elif defined __MVS__
+   /* On IBM z/OS, pthread_t is a struct with an 8-byte '__' field.
+      The first three bytes of this field appear to uniquely identify a
+      pthread_t, though not necessarily representing a pointer.  */
+#  define gl_thread_self() \
+     (pthread_in_use () ? pthread_self () : gl_null_thread)
+#  define gl_thread_self_pointer() \
+     (pthread_in_use () ? *((void **) pthread_self ().__) : NULL)
+extern const gl_thread_t gl_null_thread;
 # else
 #  define gl_thread_self() \
      (pthread_in_use () ? pthread_self () : (pthread_t) NULL)
@@ -210,6 +221,7 @@ extern "C" {
 
 /* Use weak references to the GNU Pth threads library.  */
 
+#  pragma weak pth_init
 #  pragma weak pth_spawn
 #  pragma weak pth_sigmask
 #  pragma weak pth_join
@@ -228,17 +240,17 @@ extern "C" {
 
 typedef pth_t gl_thread_t;
 # define glthread_create(THREADP, FUNC, ARG) \
-    (pth_in_use () ? ((*(THREADP) = pth_spawn (NULL, FUNC, ARG)) ? 0 : errno) : 0)
+    (pth_in_use () ? (pth_init (), ((*(THREADP) = pth_spawn (NULL, FUNC, ARG)) ? 0 : errno)) : 0)
 # define glthread_sigmask(HOW, SET, OSET) \
-    (pth_in_use () && !pth_sigmask (HOW, SET, OSET) ? errno : 0)
+    (pth_in_use () ? (pth_init (), (pth_sigmask (HOW, SET, OSET) ? 0 : errno)) : 0)
 # define glthread_join(THREAD, RETVALP) \
-    (pth_in_use () && !pth_join (THREAD, RETVALP) ? errno : 0)
+    (pth_in_use () ? (pth_init (), (pth_join (THREAD, RETVALP) ? 0 : errno)) : 0)
 # define gl_thread_self() \
-    (pth_in_use () ? (void *) pth_self () : NULL)
+    (pth_in_use () ? (pth_init (), (void *) pth_self ()) : NULL)
 # define gl_thread_self_pointer() \
     gl_thread_self ()
 # define gl_thread_exit(RETVAL) \
-    (pth_in_use () ? pth_exit (RETVAL) : 0)
+    (pth_in_use () ? (pth_init (), pth_exit (RETVAL)) : 0)
 # define glthread_atfork(PREPARE_FUNC, PARENT_FUNC, CHILD_FUNC) 0
 
 # ifdef __cplusplus
