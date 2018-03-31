@@ -81,19 +81,6 @@ static void test_all_from(const char *dirname)
 
 int main(int argc, char **argv)
 {
-	/* if VALGRIND testing is enabled, we have to call ourselves with valgrind checking */
-	if (argc == 1) {
-		const char *valgrind = getenv("TESTS_VALGRIND");
-
-		if (valgrind && *valgrind) {
-			size_t cmdsize = strlen(valgrind) + strlen(argv[0]) + 32;
-			char *cmd = alloca(cmdsize);
-
-			snprintf(cmd, cmdsize, "TESTS_VALGRIND="" %s %s", valgrind, argv[0]);
-			return system(cmd) != 0;
-		}
-	}
-
 	const char *target = strrchr(argv[0], '/');
 	target = target ? target + 1 : argv[0];
 
