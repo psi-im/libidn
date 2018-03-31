@@ -4,8 +4,47 @@ See the end for copying conditions.
 
 * Version 1.34 (unreleased) [beta]
 
+** libidn: Fix integer overflow in combine_hangul()
+   Found by fuzzing.
+
+** libidn: Fix integer overflow in punycode decoder
+   Found by fuzzing, fix for the fix reported by Christian Weisgerber
+
+** libidn: Fix performance issue in idna_to_unicode_internal()
+   Found by fuzzing.
+
+** libidn: Fix performance issue in stringprep functions.
+   Found by fuzzing.
+
+** libidn: Fix NULL pointer dereference in g_utf8_normalize()
+   Found by fuzzing.
+
+** libidn: Fix NULL pointer dereference in stringprep_ucs4_nfkc_normalize()
+   Found by fuzzing.
+
+** libidn: Increase performance of stringprep functions
+   Found by fuzzing.
+
+** testing: Add OSS-fuzz integration and regression testing
+
+** build: Update gnulib files
+
+** build: Modernize GTK-Doc build
+
+** build: Fix parallel builds
+
+** build: Add configure flag --disable-doc
+
+** build: Add configure flag --enable-ubsan (enable UB Sanitizer)
+
+** build: Add configure flag --enable-asan (enable Address Sanitizer)
+
+** build: Fix compiler warnings
+
+** build: Fix build for gcc-7
+
 ** i18n: Added Swedish translation.
-Thanks to Josef Andersson.
+   Thanks to Josef Andersson.
 
 ** API and ABI is backwards compatible with the previous version.
 
