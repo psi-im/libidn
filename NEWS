@@ -1,8 +1,8 @@
 Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
-Copyright (C) 2002-2016 Simon Josefsson
+Copyright (C) 2002-2018 Simon Josefsson
 See the end for copying conditions.
 
-* Version 1.34 (unreleased) [beta]
+* Version 1.34 (2018-03-31)
 
 ** libidn: Fix integer overflow in combine_hangul()
    Found by fuzzing.

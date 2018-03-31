@@ -1,5 +1,5 @@
 To: help-libidn@gnu.org, info-gnu@gnu.org
-Subject: Libidn 1.33 released
+Subject: Libidn 1.34 released
 <#part sign=pgpmime>
 GNU Libidn is a fully documented implementation of the Stringprep,
 Punycode and IDNA specifications.  Libidn's purpose is to encode and
@@ -8,20 +8,49 @@ and Java libraries.
 
 Noteworthy changes since the last release (from NEWS file):
 
-* Version 1.33 (released 2016-07-20) [beta]
+* Version 1.34 (2018-03-31)
 
-** libidn: Fix out-of-bounds stack read in idna_to_ascii_4i.
-See tests/tst_toascii64oob.c for regression check (and the comment in
-it how to use it).  Reported by Hanno Böck <hanno@hboeck.de>.
+** libidn: Fix integer overflow in combine_hangul()
+   Found by fuzzing.
 
-** idn: Solve out-of-bounds-read when reading one zero byte as input.
-Also replaced fgets with getline.  Reported by Hanno Böck <hanno@hboeck.de>.
+** libidn: Fix integer overflow in punycode decoder
+   Found by fuzzing, fix for the fix reported by Christian Weisgerber
 
-** libidn: stringprep_utf8_nfkc_normalize reject invalid UTF-8.
-It was always documented to only accept UTF-8 data, but now it doesn't
-crash when presented with such data.  Reported by Hanno Böck.
+** libidn: Fix performance issue in idna_to_unicode_internal()
+   Found by fuzzing.
 
-** Dropped valgrind suppressions file, should no longer be needed.
+** libidn: Fix performance issue in stringprep functions.
+   Found by fuzzing.
+
+** libidn: Fix NULL pointer dereference in g_utf8_normalize()
+   Found by fuzzing.
+
+** libidn: Fix NULL pointer dereference in stringprep_ucs4_nfkc_normalize()
+   Found by fuzzing.
+
+** libidn: Increase performance of stringprep functions
+   Found by fuzzing.
+
+** testing: Add OSS-fuzz integration and regression testing
+
+** build: Update gnulib files
+
+** build: Modernize GTK-Doc build
+
+** build: Fix parallel builds
+
+** build: Add configure flag --disable-doc
+
+** build: Add configure flag --enable-ubsan (enable UB Sanitizer)
+
+** build: Add configure flag --enable-asan (enable Address Sanitizer)
+
+** build: Fix compiler warnings
+
+** build: Fix build for gcc-7
+
+** i18n: Added Swedish translation.
+   Thanks to Josef Andersson.
 
 ** API and ABI is backwards compatible with the previous version.
 
@@ -93,43 +122,22 @@ invited to join our help-libidn mailing list, see:
   https://lists.gnu.org/mailman/listinfo/help-libidn
 
 Here are the compressed sources (3.4MB):
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
-  http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
+  https://ftp.gnu.org/gnu/libidn/libidn-1.34.tar.gz
 
 Here are GPG detached signatures:
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz.sig
-  http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz.sig
+  https://ftp.gnu.org/gnu/libidn/libidn-1.34.tar.gz.sig
 
 Here are the SHA-1 and SHA-224 signatures:
 
-57872fdc665dcc585e16f4ac0bb35374b1103f7e  libidn-1.33.tar.gz
-b9e7a2d9affe8c423ba24ff2731c7bd7307530f1f67d3f4ace921fc8  libidn-1.33.tar.gz
-
-We also provide Windows binaries built using MinGW-w64 with the build
-script windows/libidn4win.mk, for 32-bit and 64-bit x86 architecures:
-
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33-win32.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33-win32.zip.sig
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33-win64.zip
-  ftp://ftp.gnu.org/gnu/libidn/libidn-1.33-win64.zip.sig
-
-Here are the SHA-1 and SHA-224 signatures:
-
-a5efb361371702ad54fb6765d6402bcacfde1c16  libidn-1.33-win32.zip
-f18fa46b2f6d4621719e3a07fdc0cb625ca0d025fe7b53d162b5bd36  libidn-1.33-win32.zip
-
-521c0ecb9dbd7d4b4e5be15c8c84eb89d6de39d5  libidn-1.33-win64.zip
-2a84e0ba1cfc14f37afc4e4638c71dec797a10837d5bdf2b3e0c68c7  libidn-1.33-win64.zip
+8701e3d01df25431802ce483756ecad698156835  libidn-1.34.tar.gz
+92fc0d5e2f790bc1ea2359d7ff72798ce59c901118d5a9ac0bf8ff07  libidn-1.34.tar.gz
 
 The software is cryptographically signed by the author using an OpenPGP
 key identified by the following information:
 
-pub   3744R/54265E8C 2014-06-22
-      Key fingerprint = 9AA9 BDB1 1BB1 B99A 2128  5A33 0664 A769 5426 5E8C
-uid                  Simon Josefsson <simon@josefsson.org>
-
-The key is available from:
-  http://josefsson.org/54265e8c.txt
+pub   rsa4096/0x08302DB6A2670428 2014-06-26 [SC] [expires: 2018-06-12]
+      Key fingerprint = 1CB2 7DBC 9861 4B2D 5841  646D 0830 2DB6 A267 0428
+uid                   [ultimate] Tim Rühsen <tim.ruehsen@gmx.de>
 
 Code coverage, clang-analyzer output, and cyclomatic code complexity charts:
   https://www.gnu.org/software/libidn/coverage/
@@ -137,4 +145,4 @@ Code coverage, clang-analyzer output, and cyclomatic code complexity charts:
   https://www.gnu.org/software/libidn/cyclo/
 
 Happy hacking,
-Simon
+Tim
