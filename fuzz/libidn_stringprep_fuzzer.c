@@ -24,10 +24,10 @@
 
 #include <config.h>
 
-#include <assert.h> // assert
-#include <stdint.h> // uint8_t, uint32_t
-#include <stdlib.h> // malloc, free
-#include <string.h> // memcpy
+#include <assert.h> /* assert */
+#include <stdint.h> /* uint8_t, uint32_t */
+#include <stdlib.h> /* malloc, free */
+#include <string.h> /* memcpy */
 
 #include "stringprep.h"
 #include "pr29.h"
@@ -54,7 +54,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	assert(label != NULL);
 	assert(utf8_seq != NULL);
 
-	// 0 terminate
+	/* 0 terminate */
 	memcpy(label, data, size);
 	label[size] = 0;
 

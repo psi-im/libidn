@@ -24,10 +24,10 @@
 
 #include <config.h>
 
-#include <assert.h> // assert
-#include <stdint.h> // uint8_t, uint32_t
-#include <stdlib.h> // malloc, free
-#include <string.h> // memcpy
+#include <assert.h> /* assert */
+#include <stdint.h> /* uint8_t, uint32_t */
+#include <stdlib.h> /* malloc, free */
+#include <string.h> /* memcpy */
 
 #include "idna.h"
 #include "idn-free.h"
@@ -44,7 +44,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	domain = (char *) malloc(size + 1);
 	assert(domain != NULL);
 
-	// 0 terminate
+	/* 0 terminate */
 	memcpy(domain, data, size);
 	domain[size] = 0;
 
