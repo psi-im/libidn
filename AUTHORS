@@ -20,6 +20,12 @@ Contributed C# port.
 Adam Strzelecki <ono@java.pl>
 Contributed Windows Visual Studio project files.
 
+Tim Ruehsen <tim.ruehsen@gmx.de>
+Added fuzzing and OSS-Fuzz integration.
+Fixed bugs and performance issues found by fuzzing.
+Modernized GTK-Doc build.
+Fixed build issues.
+
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 URL: http://josefsson.org/54265e8c.txt
 Comment: This 0x54265e8c key is used to sign releases of Libidn.
