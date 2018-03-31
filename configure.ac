@@ -30,7 +30,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 17)
-AC_SUBST(LT_REVISION, 17)
+AC_SUBST(LT_REVISION, 18)
 AC_SUBST(LT_AGE, 6)
 
 AC_PROG_CC
