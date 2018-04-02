@@ -145,8 +145,6 @@ gl/.libs/
 gl/Makefile
 gl/Makefile.in
 gl/alloca.h
-gl/arg-nonnull.h
-gl/c++defs.h
 gl/getopt.h
 gl/libgnu.la
 gl/math.h
@@ -157,18 +155,14 @@ gl/string.h
 gl/sys/
 gl/unistd.h
 gl/vfprintf.lo
-gl/warn-on-use.h
 gl/wchar.h
 gltests/.deps/
 gltests/Makefile
 gltests/Makefile.in
 gltests/alloca.h
-gltests/arg-nonnull.h
 gltests/arpa/
-gltests/c++defs.h
 gltests/ctype.h
 gltests/fcntl.h
-gltests/glthread/
 gltests/inttypes.h
 gltests/libtests.a
 gltests/signal.h
@@ -237,7 +231,6 @@ gltests/test-version-etc
 gltests/test-vfprintf-posix
 gltests/test-wchar
 gltests/time.h
-gltests/warn-on-use.h
 gltests/wchar.h
 gtk-doc.make
 java/libidn-*.jar
@@ -274,8 +267,6 @@ lib/gl/.deps/
 lib/gl/.libs/
 lib/gl/Makefile
 lib/gl/Makefile.in
-lib/gl/arg-nonnull.h
-lib/gl/c++defs.h
 lib/gl/c-strncasecmp.lo
 lib/gl/iconv.h
 lib/gl/iconv_open-aix.h
@@ -294,15 +285,11 @@ lib/gl/unistr/.dirstamp
 lib/gl/unistr/.libs/
 lib/gl/unistr/unistr
 lib/gl/unitypes.h
-lib/gl/unused-parameter.h
-lib/gl/warn-on-use.h
 lib/gl/wchar.h
 lib/gltests/.deps/
 lib/gltests/Makefile
 lib/gltests/Makefile.in
 lib/gltests/alloca.h
-lib/gltests/arg-nonnull.h
-lib/gltests/c++defs.h
 lib/gltests/ctype.h
 lib/gltests/glthread/.deps/
 lib/gltests/glthread/.dirstamp
@@ -354,8 +341,6 @@ lib/gltests/unistd.h
 lib/gltests/unistr/.deps/
 lib/gltests/unistr/.dirstamp
 lib/gltests/unistr/unistr
-lib/gltests/unused-parameter.h
-lib/gltests/warn-on-use.h
 lib/gltests/wchar.h
 lib/idn-int.h
 lib/libidn.la
@@ -402,7 +387,6 @@ m4/threadlib.m4
 m4/uintmax_t.m4
 m4/visibility.m4
 m4/wchar_t.m4
-m4/wint_t.m4
 m4/xsize.m4
 po/*.gmo
 po/*.po
