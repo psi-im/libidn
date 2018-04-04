@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <InstallRoot>..\..\..\msvc\$(Platform)</InstallRoot>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)$(Platform)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;LIBIDN_BUILDING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;..\lib;..\lib\gl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>echo Generating includes
+cd ..\lib
+call ..\windows\perl.cmd gen-tld-tables.pl ../doc/tld/*.tld &gt; tlds.c
+call ..\windows\perl.cmd gen-stringprep-tables.pl ../doc/specifications/rfc3454.txt</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Generate includes/sources</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>mkdir $(InstallRoot)\include
+mkdir $(InstallRoot)\lib
+mkdir $(InstallRoot)\bin
+xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.lib  $(InstallRoot)\lib\
+xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.pdb  $(InstallRoot)\lib\
+xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(InstallRoot)\bin\
+xcopy /y /d /c include\idn-int.h $(InstallRoot)\include\
+cd ..\lib
+for %%f in (idn-free.h idna.h pr29.h punycode.h stringprep.h tld.h) do xcopy /y /d /c %%f $(InstallRoot)\include\</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Installation</Message>
+    </PostBuildEvent>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="InstallRoot">
+      <Value>$(InstallRoot)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

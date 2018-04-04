@@ -46,4 +46,9 @@ extern int strverscmp (const char *, const char *);
 #define _GL_ATTRIBUTE_PURE /* empty */
 #define _GL_ATTRIBUTE_CONST /* empty */
 
+#define _GL_INLINE_HEADER_BEGIN
+#define _GL_INLINE_HEADER_END
+#define _GL_INLINE static inline
+#define _GL_EXTERN_INLINE inline
+
 #endif /* _CONFIG_H */
