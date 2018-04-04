@@ -26,9 +26,9 @@ call ..\windows\perl.cmd gen-stringprep-tables.pl ../doc/specifications/rfc3454.
       <Command>mkdir $(InstallRoot)\include
 mkdir $(InstallRoot)\lib
 mkdir $(InstallRoot)\bin
-xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.lib  $(InstallRoot)\lib\
-xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.pdb  $(InstallRoot)\lib\
-xcopy /y /d /c $(SolutionDir)$(Platform)\$(Configuration)\*.dll  $(InstallRoot)\bin\
+xcopy /y /d /c $(SolutionDir)$(Platform)\*.lib  $(InstallRoot)\lib\
+xcopy /y /d /c $(SolutionDir)$(Platform)\*.pdb  $(InstallRoot)\lib\
+xcopy /y /d /c $(SolutionDir)$(Platform)\*.dll  $(InstallRoot)\bin\
 xcopy /y /d /c include\idn-int.h $(InstallRoot)\include\
 cd ..\lib
 for %%f in (idn-free.h idna.h pr29.h punycode.h stringprep.h tld.h) do xcopy /y /d /c %%f $(InstallRoot)\include\</Command>
