@@ -362,7 +362,7 @@ g_unichar_to_utf8 (gunichar c, gchar * outbuf)
  *               This value must be freed with g_free().
  **/
 static gunichar *
-g_utf8_to_ucs4_fast (const gchar * str, gsize len, gsize * items_written)
+g_utf8_to_ucs4_fast (const gchar * str, glong len, gsize * items_written)
 {
   gunichar *result;
   gsize n_chars, i;
